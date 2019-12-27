@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    tools:context=".ui.activity.LoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_login_head"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/head"
+            android:layout_marginTop="80dp"
+            />
+        <LinearLayout
+            android:id="@+id/ll_login_number"
+            android:layout_below="@id/iv_login_head"
+            style="@style/style_register_login"
+            >
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha="0.5"
+                android:src="@drawable/picture_number" />
+            <EditText
+                android:id="@+id/et_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="11"
+                android:hint="请输入账号"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_login_password"
+            style="@style/style_register_login"
+            android:layout_below="@id/ll_login_number"
+            >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha="0.5"
+                android:src="@drawable/picture_password" />
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="12"
+                android:hint="请输入密码"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/style_register_login"
+            android:gravity="center"
+            android:background="@drawable/btn_login_background"
+            android:text="登录"
+            android:textSize="40sp"
+            android:textColor="#fff"
+            android:layout_below="@id/ll_login_password"
+            >
+
+        </Button>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:padding="8dp"
+            android:layout_below="@id/btn_login"
+            >
+            <Button
+                android:id="@+id/btn_login_forgetpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="忘记密码"
+                android:textColor="#fff"
+                android:textSize="30sp"
+                />
+            <TextView
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#000"
+                android:layout_centerInParent="true"
+                />
+
+            <Button
+                android:id="@+id/btn_login_unregister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:text="账号注册"
+                android:textColor="#fff"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</FrameLayout>
