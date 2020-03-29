@@ -1,0 +1,12 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="common_vertical_margin">10dp</dimen>
+    <dimen name="common_left_margin">16dp</dimen>
+    <dimen name="statictics_word">25sp</dimen>
+    <dimen name="statictics_word_padding">15dp</dimen>
+    <dimen name="ouriconwide">60dp</dimen>
+    <dimen name="ouriconheight">50dp</dimen>
+
+</resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/leftarrows"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/statictics_word"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/statictics_word"
+            android:text="2019.10.1"
+            android:textColor="@color/colorBlack"
+            android:layout_toLeftOf="@id/tv_gap"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/tv_gap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textSize="@dimen/statictics_word"
+            android:textColor="@color/colorBlack"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/statictics_word"
+            android:text="2019.10.31"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/tv_gap"
+            />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rightarrows"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/statictics_word"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    <RadioGroup
+        android:id="@+id/rg_statistics"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        >
+        <RadioButton
+            android:id="@+id/staff_rb_salary"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="0dp"
+            android:text="工资统计"
+            android:button="@null"
+            android:gravity="center"
+            android:background="@drawable/selector_statictics_btnbg"
+            />
+        <RadioButton
+            android:id="@+id/staff_rb_vacate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="请假统计"
+            android:button="@null"
+            android:gravity="center"
+            android:background="@drawable/selector_statictics_btnbg"
+            />
+    </RadioGroup>
+
+   <android.support.v4.view.ViewPager
+       android:id="@+id/vp_statistics_menu"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+   </android.support.v4.view.ViewPager>
+
+
+</LinearLayout>

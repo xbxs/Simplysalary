@@ -8,7 +8,7 @@ import com.example.atry.simplysalary.R;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 初始化数据
      */
     protected abstract void initData();
-
     //点击事件
 
     /**
@@ -44,8 +43,5 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             return View.inflate(this,R.layout.activity_base,null);
         }
     }
-    @Override
-    public void onClick(View view) {
 
-    }
 }

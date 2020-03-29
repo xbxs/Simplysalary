@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="calendar_week_color">#cdcdcd</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="bg_purple">#6C75BB</color>
+    <color name="bg_gray">#DFDDDD</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorlogoutbg">#fb5e64</color>
+
 </resources>

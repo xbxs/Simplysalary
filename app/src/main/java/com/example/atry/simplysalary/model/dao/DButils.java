@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.atry.simplysalary.model.UserDataHelper;
+import com.example.atry.simplysalary.model.db.UserDataHelper;
 import com.example.atry.simplysalary.model.bean.User;
 
 import java.util.ArrayList;

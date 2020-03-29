@@ -1,11 +1,9 @@
 package com.example.atry.simplysalary.ui.activity;
 
-import android.content.ContentValues;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,9 +13,12 @@ import android.widget.Toast;
 
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.globe.BaseActivity;
+import com.example.atry.simplysalary.model.Model;
 import com.example.atry.simplysalary.model.bean.User;
-import com.example.atry.simplysalary.model.dao.DButils;
+import com.example.atry.simplysalary.model.dao.UserAccountDao;
 import com.example.atry.simplysalary.utils.Uiutils;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -116,25 +117,68 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private boolean registerUser() {
-        DButils dButils = new DButils(getApplicationContext());
-        User user = dButils.queryUser(mNumber);
-        if(user != null){
-            Log.i("TAG",user.toString());
-        }
 
-        if(dButils.queryUser(mNumber) == null){
-            int flag = rb_staff.isChecked() ? 1 :0;
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("phonenumber",mNumber);
-            contentValues.put("name","简记");
-            contentValues.put("picture","");
-            contentValues.put("flag",flag);
-            contentValues.put("bossnumber",1);
-            contentValues.put("department","");
+        //去服务器注册账号
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().createAccount(mNumber,mPassword);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                            insertdb();
+                            finish();
+                        }
+                    });
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(RegisterActivity.this,"注册失败："+e.toString(),Toast.LENGTH_SHORT).show();
 
-            long count = dButils.insertUser(contentValues);
+                        }
+                    });
+
+                }
+            }
+        });
+//        DButils dButils = new DButils(getApplicationContext());
+//        User user = dButils.queryUser(mNumber);
+//        if(user != null){
+//            Log.i("TAG",user.toString());
+//        }
+//
+//        if(dButils.queryUser(mNumber) == null){
+//            int flag = rb_staff.isChecked() ? 1 :0;
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put("phonenumber",mNumber);
+//            contentValues.put("name","简记");
+//            contentValues.put("picture","");
+//            contentValues.put("flag",flag);
+//            contentValues.put("bossnumber",1);
+//            contentValues.put("department","");
+//
+//            long count = dButils.insertUser(contentValues);
+//            if(count > 1)
+//            return true;
+//        }
+
+
+        return false;
+    }
+
+    boolean insertdb(){
+        UserAccountDao userAccountDao = Model.getInstance().getUserAccountDao();
+        User user = userAccountDao.getUser(mNumber);
+        if(user == null){
+            int flag = rb_staff.isChecked() ? 0:1;
+            User adduser = new User(mNumber,mPassword,"",flag,1,"");
+            long count = userAccountDao.addUser(adduser);
             if(count > 1)
-            return true;
+                return true;
         }
         return false;
     }
@@ -158,23 +202,24 @@ public class RegisterActivity extends BaseActivity {
                 // 提交验证码成功
                 if(result == SMSSDK.RESULT_COMPLETE){
                     if(event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE){
-                        if(registerUser()){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(Uiutils.getContext(),"注册成功",Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        }else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(Uiutils.getContext(),"该账号已经注册了",Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        }
+                        registerUser();
+//                        if(registerUser()){
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(Uiutils.getContext(),"注册成功",Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//
+//                        }else {
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(Uiutils.getContext(),"该账号已经注册了",Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//
+//                        }
 
                     }
                 }else if(event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
@@ -184,7 +229,6 @@ public class RegisterActivity extends BaseActivity {
                             Toast.makeText(Uiutils.getContext(),"正在获取验证码!",Toast.LENGTH_SHORT).show();
                         }
                     });
-
                 }else {
                     runOnUiThread(new Runnable() {
                         @Override

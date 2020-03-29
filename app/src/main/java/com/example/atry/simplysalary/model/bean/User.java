@@ -5,11 +5,17 @@ package com.example.atry.simplysalary.model.bean;
  * 邮箱: 3182430026@qq.com
  */
 public class User {
+    //账号
     private String phonenumber;
+    //昵称
     private String name;
+    //图片
     private String picture;
+    //标识 0为员工 1为老板
     private int flag;
+    //老板编号
     private int bossnumber;
+    //部门
     private String department;
 
     public User() {
