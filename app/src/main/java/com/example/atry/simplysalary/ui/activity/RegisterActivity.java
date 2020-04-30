@@ -14,24 +14,14 @@ import android.widget.Toast;
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.globe.BaseActivity;
 import com.example.atry.simplysalary.model.Model;
-import com.example.atry.simplysalary.utils.CommonRequest;
 import com.example.atry.simplysalary.model.bean.User;
 import com.example.atry.simplysalary.model.dao.UserAccountDao;
-import com.example.atry.simplysalary.utils.CommonResponse;
-import com.example.atry.simplysalary.utils.ConstantValues;
-import com.example.atry.simplysalary.utils.HttpUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-import okhttp3.Call;
-import okhttp3.Response;
 
 public class RegisterActivity extends BaseActivity {
     private Button btn_send_verify,btn_register;
@@ -90,12 +80,12 @@ public class RegisterActivity extends BaseActivity {
         String phoneNums = et_register_number.getText().toString().trim();
 
         switch (view.getId()){
-            //发送验证码按钮
+
             case R.id.btn_send_verify:
                 if(!Uiutils.judgePhoneNums(phoneNums)){
                     return;
                 }
-         //验证码       SMSSDK.getVerificationCode("86",phoneNums);
+                SMSSDK.getVerificationCode("86",phoneNums);
                 btn_send_verify.setClickable(false);
                 btn_send_verify.setText("重新发送("+i+")");
                 new Thread(new Runnable() {
@@ -119,8 +109,7 @@ public class RegisterActivity extends BaseActivity {
                 if(!inputIntegrity()){
                     return;
                 }
-              // SMSSDK.submitVerificationCode("86",phoneNums,et_register_verify.getText().toString());
-                registerUser();
+                SMSSDK.submitVerificationCode("86",phoneNums,et_register_verify.getText().toString());
                 break;
             default:
                 break;
@@ -130,38 +119,32 @@ public class RegisterActivity extends BaseActivity {
     private boolean registerUser() {
 
         //去服务器注册账号
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().createAccount(mNumber,mPassword);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+                            insertdb();
+                            finish();
+                        }
+                    });
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(RegisterActivity.this,"注册失败："+e.toString(),Toast.LENGTH_SHORT).show();
 
-//        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    EMClient.getInstance().createAccount(mNumber,mPassword);
-//                   //如果环信服务器注册成功
-                   int flag = rb_staff.isChecked() ? 0:1;
-//
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-                            User user = new User(mNumber,"备注","",flag,"",0,0);
-                            RegisterPost(user);
-//                            Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-//
-//                            insertdb();
-//                            finish();
-//                        }
-//                    });
-//                } catch (HyphenateException e) {
-//                    e.printStackTrace();
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(RegisterActivity.this,"注册失败："+e.toString(),Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                }
-//            }
-//        });
+                        }
+                    });
+
+                }
+            }
+        });
 //        DButils dButils = new DButils(getApplicationContext());
 //        User user = dButils.queryUser(mNumber);
 //        if(user != null){
@@ -187,52 +170,12 @@ public class RegisterActivity extends BaseActivity {
         return false;
     }
 
-    private void RegisterPost(User user) {
-        CommonRequest request = new CommonRequest();
-        request.addRequestParam("account",user.getPhonenumber());
-        request.addRequestParam("password",mPassword);
-        request.addRequestParam("flag",user.getFlag()+"");
-        //调用请求网络的方法
-        infoPost(ConstantValues.URL_Register,request.getJsonStr());
-    }
-
-    private void infoPost(String url_login, String jsonStr) {
-        HttpUtils.sendPost(url_login,jsonStr, new okhttp3.Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                e.printStackTrace();
-                showResponse("NetWork ERROR"+e.getMessage());
-            }
-
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                CommonResponse res = new CommonResponse(response.body().string());
-                String resCode = res.getResCode();
-                String resMsg = res.getResMsg();
-                showResponse(resMsg);
-                if(resCode.equals(ConstantValues.SUCCESSCODE_REGISTER)){
-                    finish();
-                }
-            }
-        });
-    }
-    //显示请求数据结果
-    private void showResponse(String info) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Uiutils.toast(info);
-            }
-        });
-
-    }
-
     boolean insertdb(){
         UserAccountDao userAccountDao = Model.getInstance().getUserAccountDao();
         User user = userAccountDao.getUser(mNumber);
         if(user == null){
             int flag = rb_staff.isChecked() ? 0:1;
-            User adduser = new User(mNumber,"备注","",flag,"",0,0);
+            User adduser = new User(mNumber,mPassword,"",flag,1,"");
             long count = userAccountDao.addUser(adduser);
             if(count > 1)
                 return true;

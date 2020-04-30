@@ -83,7 +83,7 @@ public class NewGroupActivity extends BaseActivity {
                 //参数1：群名称，参数2：群描述，参数3：群成员，参数4：原因，参数5：参数设置
                 EMGroupOptions options = new EMGroupOptions();
                 options.maxUsers = 200;
-                EMGroupManager.EMGroupStyle emGroupStyle = EMGroupManager.EMGroupStyle.EMGroupStylePrivateOnlyOwnerInvite;
+                EMGroupManager.EMGroupStyle emGroupStyle = EMGroupManager.EMGroupStyle.EMGroupStylePublicJoinNeedApproval;
                 options.style = emGroupStyle;
 
                 try {

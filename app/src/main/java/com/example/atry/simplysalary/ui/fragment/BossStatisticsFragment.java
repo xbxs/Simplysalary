@@ -167,8 +167,6 @@ public class BossStatisticsFragment extends BaseFragment {
     private void refresh() {
         Log.i("TAG","refresh");
         bossStaticsSalaryFragment.refresh(EMClient.getInstance().groupManager().getAllGroups());
-        bossStaticsVacateFragment.refresh(EMClient.getInstance().groupManager().getAllGroups());
-
     }
 
     @Override

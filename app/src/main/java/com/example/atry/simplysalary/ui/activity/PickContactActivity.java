@@ -14,17 +14,12 @@ import com.example.atry.simplysalary.model.Model;
 import com.example.atry.simplysalary.model.bean.PickUserInfo;
 import com.example.atry.simplysalary.model.bean.User;
 import com.example.atry.simplysalary.ui.adapter.PickContactAdapter;
-import com.example.atry.simplysalary.utils.ConstantValues;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.hyphenate.easeui.model.EaseDefaultEmojiconDatas.getData;
 
 public class PickContactActivity extends BaseActivity {
 
@@ -35,7 +30,6 @@ public class PickContactActivity extends BaseActivity {
     ListView lvPick;
     private List<PickUserInfo> pickUserInfos;
     private PickContactAdapter pickContactAdapter;
-    private List<String> mExistMembers;
 
     @Override
     protected int setContentView() {
@@ -77,7 +71,6 @@ public class PickContactActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        getIntentData();
             //获取联系人的信息
         List<User> contacts = Model.getInstance().getDbManager().getContactTableDao().getContacts();
             //转换为PickUserInfo
@@ -86,23 +79,10 @@ public class PickContactActivity extends BaseActivity {
                 pickUserInfos.add(new PickUserInfo(user,false));
          }
             //初始化listview的适配器
-        pickContactAdapter = new PickContactAdapter(PickContactActivity.this, pickUserInfos,mExistMembers);
-        lvPick.setAdapter(pickContactAdapter);
+        pickContactAdapter = new PickContactAdapter(PickContactActivity.this, pickUserInfos);
+            lvPick.setAdapter(pickContactAdapter);
 
         initListener();
-    }
-    //得到群成员
-    private void getIntentData() {
-        String groupId = getIntent().getStringExtra(ConstantValues.SECTION_ID);
-        if(groupId != null){
-            EMGroup emGroup = EMClient.getInstance().groupManager().getGroup(groupId);
-            //获取群里面已经存在的成员
-            mExistMembers = emGroup.getMembers();
-        }
-        if(mExistMembers == null){
-            mExistMembers = new ArrayList<>();
-        }
-
     }
 
     @Override

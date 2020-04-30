@@ -71,7 +71,7 @@ public class GuideActivity extends BaseActivity {
                     Intent intent = null;
                     if(user != null){
                         intent = new Intent(GuideActivity.this,MainActivity.class);
-                        Model.getInstance().loginSuccess(user);
+
                     }else {
                         Model.getInstance().loginSuccess(user);
                         intent = new Intent(GuideActivity.this,LoginActivity.class);

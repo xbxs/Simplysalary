@@ -17,15 +17,12 @@ import java.util.List;
 public class PickContactAdapter extends BaseAdapter {
     private Context mcontext;
     private List<PickUserInfo> pickUserInfoList = new ArrayList<>();
-    private List<String> mexitsMembers = new ArrayList<>();
-    public PickContactAdapter(Context context,List<PickUserInfo> pickUserInfos,List<String> exitsMembers) {
+    public PickContactAdapter(Context context,List<PickUserInfo> pickUserInfos) {
         mcontext = context;
         if(pickUserInfos != null && pickUserInfos.size() >= 0){
             pickUserInfoList.clear();
             pickUserInfoList.addAll(pickUserInfos);
         }
-        mexitsMembers.clear();
-        mexitsMembers.addAll(exitsMembers);
     }
 
     @Override
@@ -59,13 +56,6 @@ public class PickContactAdapter extends BaseAdapter {
         PickUserInfo pickUserInfo =pickUserInfoList.get(position);
         pickContactHolder.cb_pick.setChecked(pickUserInfo.isChecked());
         pickContactHolder.tv_pick_name.setText(pickUserInfo.getUser().getPhonenumber());
-
-        //判断是否已经在群里
-        if(mexitsMembers.contains(pickUserInfo.getUser().getPhonenumber())){
-            pickContactHolder.cb_pick.setChecked(true);
-           // pickContactHolder.cb_pick.setClickable(false);
-            pickUserInfo.setChecked(true);
-        }
         return convertView;
     }
 

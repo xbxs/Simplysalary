@@ -12,24 +12,12 @@ import android.widget.TextView;
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.globe.BaseActivity;
 import com.example.atry.simplysalary.model.Model;
-import com.example.atry.simplysalary.model.bean.User;
-import com.example.atry.simplysalary.utils.CommonRequest;
-import com.example.atry.simplysalary.utils.CommonResponse;
-import com.example.atry.simplysalary.utils.ConstantValues;
-import com.example.atry.simplysalary.utils.HttpUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Response;
 
 public class AddContactActivity extends BaseActivity {
 
@@ -98,37 +86,20 @@ public class AddContactActivity extends BaseActivity {
             return;
         }
         //去服务区判断当前的用户是否存在
-
-        CommonRequest request = new CommonRequest();
-        request.addRequestParam("phonenumber",mName);
-        HttpUtils.sendPost(ConstantValues.URL_USER+"queryUserById",request.getJsonStr(),new okhttp3.Callback(){
-
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                CommonResponse res = new CommonResponse(response.body().string());
-                String resCode = res.getResCode();
-                String resMsg = res.getResMsg();
-                if(resCode.equals("0")){
-                     //如果存在就显示布局，并将查到的信息赋值到布局上
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //显示布局，并赋值
-                            rlAddContact.setVisibility(View.VISIBLE);
-                            tvAddName.setText(mName);
-                        }
-                    });
-                }else{
-                    Uiutils.toast(resMsg);
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Uiutils.toast("NetWork ERROR:"+e.getMessage());
+            public void run() {
+                //如果存在就显示布局，并将查到的信息赋值到布局上
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //显示布局，并赋值
+                        rlAddContact.setVisibility(View.VISIBLE);
+                        tvAddName.setText(mName);
+                    }
+                });
             }
         });
-
 
     }
     //添加好友

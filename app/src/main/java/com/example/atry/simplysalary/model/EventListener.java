@@ -211,16 +211,15 @@ public class EventListener {
         //群邀请 自动被接受
         @Override
         public void onAutoAcceptInvitationFromGroup(String groupId, String inviter, String inviteMessage) {
-//            InvationInfo invationinfo = new InvationInfo();
-//            invationinfo.setReason(inviteMessage);
-//            invationinfo.setGroupInfo(new GroupInfo(groupId,groupId,inviter));
-//            invationinfo.setStatus(InvationInfo.InvitationStatus.GROUP_INVITE_ACCEPTED);
-//            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invationinfo);
-//            //红点处理
-//            SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,true);
-//            //发送广播
-//            mManager.sendBroadcast(new Intent(ConstantValues.SECTION_CHANGED));
-            onInvitationAccepted(groupId,inviter,inviteMessage);
+            InvationInfo invationinfo = new InvationInfo();
+            invationinfo.setReason(inviteMessage);
+            invationinfo.setGroupInfo(new GroupInfo(groupId,groupId,inviter));
+            invationinfo.setStatus(InvationInfo.InvitationStatus.GROUP_INVITE_ACCEPTED);
+            Model.getInstance().getDbManager().getInviteTableDao().addInvitation(invationinfo);
+            //红点处理
+            SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,true);
+            //发送广播
+            mManager.sendBroadcast(new Intent(ConstantValues.SECTION_CHANGED));
         }
 
         @Override

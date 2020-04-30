@@ -5,10 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.BossStaticsVacateFragment">
 
-    <ListView
-        android:id="@+id/lv_section_vacate"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="老板统计请假"
+        android:textSize="35sp"
         />
 
 </FrameLayout>

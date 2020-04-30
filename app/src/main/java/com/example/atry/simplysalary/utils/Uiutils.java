@@ -67,13 +67,7 @@ public class Uiutils {
     }
     //弹窗
     public static void toast(String content){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getContext(),content,Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        Toast.makeText(getContext(),content,Toast.LENGTH_SHORT).show();
     }
 
     /**

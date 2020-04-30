@@ -79,9 +79,9 @@ public class DButils {
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String picture = cursor.getString(cursor.getColumnIndex("picture"));
             int flag = cursor.getInt(cursor.getColumnIndex("flag"));
-            int bossnumber = cursor.getInt(cursor.getColumnIndex(""));
+            int bossnumber = cursor.getInt(cursor.getColumnIndex("bossnumber"));
             String department = cursor.getString(cursor.getColumnIndex("department"));
-//            user = new User(userphonenumber,name,picture,flag,);
+            user = new User(userphonenumber,name,picture,flag,bossnumber,department);
         }
         cursor.close();
 
@@ -100,8 +100,8 @@ public class DButils {
                 String picture = cursor.getString(cursor.getColumnIndex("picture"));
                 int flag = cursor.getInt(cursor.getColumnIndex("flag"));
                 int bossnumber = cursor.getInt(cursor.getColumnIndex("bossnumber"));
-//                User user = new User(userphonenumber, name, picture, flag, bossnumber, department);
-//                list.add(user);
+                User user = new User(userphonenumber, name, picture, flag, bossnumber, department);
+                list.add(user);
             }while (cursor.moveToNext());
         }
 

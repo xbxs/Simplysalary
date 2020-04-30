@@ -33,7 +33,7 @@ public class ContactTableDao {
             user.setName(cursor.getString(cursor.getColumnIndex(ContactTable.COL_NAME)));
             user.setPicture(cursor.getString(cursor.getColumnIndex(ContactTable.COL_PICTURE)));
             user.setFlag(cursor.getInt(cursor.getColumnIndex(ContactTable.COL_FLAG)));
-         //   user.setBossnumber(cursor.getInt(cursor.getColumnIndex(ContactTable.COL_BOSSNUMBER)));
+            user.setBossnumber(cursor.getInt(cursor.getColumnIndex(ContactTable.COL_BOSSNUMBER)));
             user.setDepartment(cursor.getString(cursor.getColumnIndex(ContactTable.COL_DEPARTMENT)));
             list.add(user);
 
@@ -59,7 +59,7 @@ public class ContactTableDao {
             user.setName(cursor.getString(cursor.getColumnIndex(ContactTable.COL_NAME)));
             user.setPicture(cursor.getString(cursor.getColumnIndex(ContactTable.COL_PICTURE)));
             user.setFlag(cursor.getInt(cursor.getColumnIndex(ContactTable.COL_FLAG)));
-           // user.setBossnumber(cursor.getInt(cursor.getColumnIndex(ContactTable.COL_BOSSNUMBER)));
+            user.setBossnumber(cursor.getInt(cursor.getColumnIndex(ContactTable.COL_BOSSNUMBER)));
             user.setDepartment(cursor.getString(cursor.getColumnIndex(ContactTable.COL_DEPARTMENT)));
         }
 
@@ -100,7 +100,7 @@ public class ContactTableDao {
         values.put(ContactTable.COL_NAME,user.getName());
         values.put(ContactTable.COL_PICTURE,user.getPicture());
         values.put(ContactTable.COL_FLAG,user.getFlag());
-        //values.put(ContactTable.COL_BOSSNUMBER,user.getBossnumber());
+        values.put(ContactTable.COL_BOSSNUMBER,user.getBossnumber());
         values.put(ContactTable.COL_DEPARTMENT,user.getDepartment());
         values.put(ContactTable.COL_IS_CONTACT,isMyContact ? 1 : 0);
 
