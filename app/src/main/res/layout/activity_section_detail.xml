@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.SectionDetailActivity">
+    tools:context=".ui.activity.SectionDetailActivity"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
 
-</android.support.constraint.ConstraintLayout>
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_section_detailname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="销售部"
+            android:textColor="@color/colorWhite"
+            android:textSize="35sp"
+            android:gravity="center"
+            android:background="@color/bg_purple"
+            />
+        <ImageView
+            android:id="@+id/iv_section_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/add_white"
+            />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_section_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

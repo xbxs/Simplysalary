@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.SectionDetailActivity"></activity>
+        <activity android:name=".ui.activity.Boss_StaffStatiticsDetailActivity"></activity>
+        <activity android:name=".ui.activity.SectionDetailActivity" />
         <activity android:name=".ui.activity.PickContactActivity" />
         <activity android:name=".ui.activity.NewGroupActivity" />
         <activity android:name=".ui.activity.MessageActivity" />

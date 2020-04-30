@@ -19,6 +19,7 @@ import com.example.atry.simplysalary.model.Model;
 import com.example.atry.simplysalary.ui.activity.SectionDetailActivity;
 import com.example.atry.simplysalary.ui.adapter.BoosStaticsExpandAdapter;
 import com.example.atry.simplysalary.ui.adapter.SectionAdapter;
+import com.example.atry.simplysalary.utils.ConstantValues;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -55,6 +56,10 @@ public class BossStaticsSalaryFragment extends BaseFragment {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Intent intent = new Intent(getActivity(), SectionDetailActivity.class);
+               Bundle bundle = new Bundle();
+               intent.putExtra(ConstantValues.SECTION_ID,emGroups.get(position).getGroupId());
+               intent.putExtra(ConstantValues.SECTION_NAME,emGroups.get(position).getGroupName());
+               startActivity(intent);
            }
        });
        lv_section.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -143,7 +148,7 @@ public class BossStaticsSalaryFragment extends BaseFragment {
     public void refresh(List<EMGroup> emGroupList){
             emGroups.clear();
             emGroups.addAll(emGroupList);
-           sectionAdapter.refresh(emGroupList);
+            sectionAdapter.refresh(emGroupList);
     }
 
 

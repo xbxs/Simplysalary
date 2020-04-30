@@ -29,7 +29,8 @@ public class UserAccountDao {
         values.put(UserAccountTable.COL_NAME,user.getName());
         values.put(UserAccountTable.COL_PICTURE,user.getPicture());
         values.put(UserAccountTable.COL_FLAG,user.getFlag());
-        values.put(UserAccountTable.COL_BOSSNUMBER,user.getBossnumber());
+        values.put(UserAccountTable.COL_BAS,user.getU_bas());
+        values.put(UserAccountTable.COL_WAGE,user.getU_wage());
         values.put(UserAccountTable.COL_DEPARTMENT,user.getDepartment());
 
         long result =  db.replace(UserAccountTable.TAB_NAME,null,values);
@@ -49,7 +50,7 @@ public class UserAccountDao {
             user.setName(cursor.getString(cursor.getColumnIndex(UserAccountTable.COL_NAME)));
             user.setPicture(cursor.getString(cursor.getColumnIndex(UserAccountTable.COL_PICTURE)));
             user.setFlag(cursor.getInt(cursor.getColumnIndex(UserAccountTable.COL_FLAG)));
-            user.setBossnumber(cursor.getInt(cursor.getColumnIndex(UserAccountTable.COL_BOSSNUMBER)));
+            user.setU_bas(cursor.getInt(cursor.getColumnIndex(UserAccountTable.COL_BAS)));
             user.setDepartment(cursor.getString(cursor.getColumnIndex(UserAccountTable.COL_DEPARTMENT)));
         }
 
