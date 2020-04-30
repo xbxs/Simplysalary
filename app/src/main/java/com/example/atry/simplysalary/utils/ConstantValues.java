@@ -22,4 +22,21 @@ public class ConstantValues {
     public static final String IS_NEW_INVITE = "is_new_invite";
     public static final String SECTION_CREATE = "section_create";
     public static final String  SECTION_CHANGED = "section_changed";
+    public static final String SECTION_ID = "section_id";
+    public static final String SECTION_NAME = "section_name";
+
+    //URL
+    //服务器域名
+    public static final String SERVER_URL= "http://192.168.43.24:8080/SimplySalary";
+    //登录的url
+    public static final String URL_Login = SERVER_URL+"/users/Users_login";
+    //注册的url
+    public static final String URL_Register = SERVER_URL+"/users/Users_add";
+    //对User操作的url
+    public static final String URL_USER = SERVER_URL+"/users/Users_";
+    //注册成功的标识
+    public static final String SUCCESSCODE_REGISTER = "0";
+
+    //工资的url
+    public static final String URL_SALARY = SERVER_URL+"/salary/Salary_";
 }

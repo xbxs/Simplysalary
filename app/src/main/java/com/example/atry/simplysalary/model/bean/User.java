@@ -13,21 +13,39 @@ public class User {
     private String picture;
     //标识 0为员工 1为老板
     private int flag;
-    //老板编号
-    private int bossnumber;
     //部门
     private String department;
-
+    //底薪
+    private int u_bas;
+    //时薪
+    private int u_wage;
     public User() {
     }
 
-    public User(String phonenumber, String name, String picture, int flag, int bossnumber, String department) {
+    public User(String phonenumber, String name, String picture, int flag, String department, int u_bas, int u_wage) {
         this.phonenumber = phonenumber;
         this.name = name;
         this.picture = picture;
         this.flag = flag;
-        this.bossnumber = bossnumber;
         this.department = department;
+        this.u_bas = u_bas;
+        this.u_wage = u_wage;
+    }
+
+    public int getU_bas() {
+        return u_bas;
+    }
+
+    public void setU_bas(int u_bas) {
+        this.u_bas = u_bas;
+    }
+
+    public int getU_wage() {
+        return u_wage;
+    }
+
+    public void setU_wage(int u_wage) {
+        this.u_wage = u_wage;
     }
 
     public String getPhonenumber() {
@@ -62,13 +80,6 @@ public class User {
         this.flag = flag;
     }
 
-    public int getBossnumber() {
-        return bossnumber;
-    }
-
-    public void setBossnumber(int bossnumber) {
-        this.bossnumber = bossnumber;
-    }
 
     public String getDepartment() {
         return department;
@@ -81,12 +92,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "phonenumber=" + phonenumber +
+                "phonenumber='" + phonenumber + '\'' +
                 ", name='" + name + '\'' +
                 ", picture='" + picture + '\'' +
                 ", flag=" + flag +
-                ", bossnumber=" + bossnumber +
                 ", department='" + department + '\'' +
+                ", u_bas='" + u_bas + '\'' +
+                ", u_wage='" + u_wage + '\'' +
                 '}';
     }
 }
