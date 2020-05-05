@@ -110,6 +110,8 @@ public class SectionDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SectionDetailActivity.this,PickContactActivity.class);
                 intent.putExtra(ConstantValues.SECTION_ID,mgroupId);
+                //选择人员
+                intent.putExtra("flag","statics");
                 startActivityForResult(intent,2);
             }
         });
@@ -205,8 +207,8 @@ public class SectionDetailActivity extends BaseActivity {
                                 request.addRequestParam(members.get(i));
                             }
                             //添加请求参数
-                            request.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE, "20200502"));
-                            request.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE, "20200503"));
+                            request.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE, "2020-05-04 19:15"));
+                            request.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE, "2020-05-06 22:15"));
                             request.addRequestParam("s_section", mgroupId);
                            if(flag.equals("salary")) {
                                request.setRequestCode("section_salary");

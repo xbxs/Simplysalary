@@ -5,20 +5,21 @@
     android:orientation="vertical"
     >
     <CalendarView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:selectedWeekBackgroundColor="#aff"
-                android:focusedMonthDateColor="#f00"
-                android:weekSeparatorLineColor="#ff0"
-                android:unfocusedMonthDateColor="#f9f" />
+        android:id="@+id/cdv_arragework_staff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:selectedWeekBackgroundColor="#aff"
+        android:focusedMonthDateColor="#f00"
+        android:weekSeparatorLineColor="#ff0"
+        android:unfocusedMonthDateColor="#f9f" />
 
 
-        <LinearLayout
-                android:id="@+id/content_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

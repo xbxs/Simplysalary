@@ -69,9 +69,9 @@ public class VacateActivity extends BaseActivity {
         vacateAdapter.setselfItemClickListener(onItemClickListener);
         lvVacateApply.setAdapter(vacateAdapter);
         if(1== flag){
-            ivVacateAdd.setVisibility(View.INVISIBLE);
-        }else{
             ivVacateAdd.setVisibility(View.VISIBLE);
+        }else{
+            ivVacateAdd.setVisibility(View.INVISIBLE);
         }
         ivVacateAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,18 +164,8 @@ public class VacateActivity extends BaseActivity {
         CommonRequest request = new CommonRequest();
         Vacate vacate = mvacates.get(position);
         vacate.setV_status(v_status);
-//        request.addRequestParam("u_phone",vacate.getU_phone());
-//        request.addRequestParam("v_rtime",vacate.getV_rtime());
-//        request.addRequestParam("v_term",vacate.getV_term());
-//        request.addRequestParam("v_shift",vacate.getV_shift());
-//        request.addRequestParam("v_section",vacate.getV_section());
-//        request.addRequestParam("v_reason",vacate.getV_reason());
-//        request.addRequestParam("v_tuser",vacate.getV_tuser());
         request.addRequestParam("v_status",vacate.getV_status());
-//        request.addRequestParam("v_etime",vacate.getV_etime());
         request.addRequestParam("v_id",vacate.getV_id());
-//        request.addRequestParam("v_type",vacate.getV_type());
-//        request.addRequestParam("v_btime",vacate.getV_btime());
         HttpUtils.sendPost(ConstantValues.URL_VACATE+"queryVacateById", request.getJsonStr(),new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {

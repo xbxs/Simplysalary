@@ -52,8 +52,8 @@ public class Boss_StaffStaticsAdapter extends BaseAdapter {
         }
 
         StaffSalary staffSalary = mSalarys.get(position);
-        String month = staffSalary.getS_rtime().substring(4,6);
-        String day = staffSalary.getS_rtime().substring(6,8);
+        String month = staffSalary.getS_rtime().substring(5,7);
+        String day = staffSalary.getS_rtime().substring(8,10);
         holder.tv_statics_time.setText(month+"月"+day+"日");
         holder.tv_statics_term.setText(staffSalary.getS_term());
         String rshift = staffSalary.getS_shift();

@@ -36,6 +36,10 @@ public class CommonRequest {
     public void addRequestParam(Object value){
         jsonArray.put(value);
     }
+    //设置请求JSONObject数组
+    public void addRequestParam(JSONObject jsonObject){
+        jsonArray.put(jsonObject);
+    }
 
     public String getJsonStr(){
 

@@ -26,8 +26,10 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.exceptions.HyphenateException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -94,11 +96,17 @@ public class BossStatisticsFragment extends BaseFragment {
                     }
                 }
             });
-            String leftdate = SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"20200502");
-            leftdate = (leftdate.substring(0,4)+"-"+leftdate.substring(4,6)+"-"+leftdate.substring(6,8));
+            String leftdate = SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"2020-05-03 22:15");
+            if("2020-05-03 22:15".equals(leftdate)){
+                SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,"2020-05-03 22:15");
+            }
+            leftdate = leftdate.substring(0,10);
             tvBossstaticsLeft.setText(leftdate);
-            String rightdate = SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE,"20200503");
-            rightdate = (rightdate.substring(0,4)+"-"+rightdate.substring(4,6)+"-"+rightdate.substring(6,8));
+            String rightdate = SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE,"2020-05-06 22:15");
+            if("2020-05-06 22:15".equals(rightdate)){
+                SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE,"2020-05-06 22:15");
+            }
+            rightdate = rightdate.substring(0,10);
             tvBossstaticsRight.setText(rightdate);
 
             btnBoosstaticsLeft.setOnClickListener(new View.OnClickListener() {
@@ -216,18 +224,22 @@ public class BossStatisticsFragment extends BaseFragment {
                }else{
                    strdayOfMonth = dayOfMonth+"";
                }
+               SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+               Date date = new Date(System.currentTimeMillis());
+               String time = simpleDateFormat.format(date);
+
                if(tv.getId() == R.id.tv_bossstatics_right){
-                   String date = year+"-"+strmonth+"-"+strdayOfMonth;
-                   if(date.compareTo(tvBossstaticsLeft.getText().toString()) < 0) {
+                   String date1 = year+"-"+strmonth+"-"+strdayOfMonth;
+                   if(date1.compareTo(tvBossstaticsLeft.getText().toString()) < 0) {
                        Uiutils.toast("后面的日期不能小于前面的");
                        return;
                    }else{
                        tv.setText(year+"-"+strmonth+"-"+strdayOfMonth);
-                       SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE,year+strmonth+strdayOfMonth);
+                       SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE,year+strmonth+strdayOfMonth+" "+time);
                    }
                }else {
                    tv.setText(year+"-"+strmonth+"-"+strdayOfMonth);
-                   SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,year+strmonth+strdayOfMonth);
+                   SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,year+strmonth+strdayOfMonth+" "+time);
                }
            }
        },calendar.get(Calendar.YEAR)

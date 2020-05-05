@@ -51,5 +51,6 @@ public class ConstantValues {
     //请假
     public static final String URL_VACATE = SERVER_URL+"/vacate/Vacate_";
 
-
+    //排班
+    public static final String URL_SCHEDULE = SERVER_URL+"/schedule/Schedule_";
 }

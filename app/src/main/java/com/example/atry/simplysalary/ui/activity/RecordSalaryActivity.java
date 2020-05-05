@@ -290,7 +290,7 @@ public class RecordSalaryActivity extends BaseActivity {
     }
     //去服务器存数据
     public void requestServerAddSalary(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHH");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
         time = simpleDateFormat.format(date);
         shift = "1";

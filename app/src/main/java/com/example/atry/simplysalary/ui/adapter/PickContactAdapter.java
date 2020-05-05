@@ -17,6 +17,7 @@ import java.util.List;
 public class PickContactAdapter extends BaseAdapter {
     private Context mcontext;
     private List<PickUserInfo> pickUserInfoList = new ArrayList<>();
+
     private List<String> mexitsMembers = new ArrayList<>();
     public PickContactAdapter(Context context,List<PickUserInfo> pickUserInfos,List<String> exitsMembers) {
         mcontext = context;

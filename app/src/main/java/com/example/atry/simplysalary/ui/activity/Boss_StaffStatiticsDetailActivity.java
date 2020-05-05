@@ -187,8 +187,8 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
         }
         commonRequest.addRequestParam("phonenumber", phonenumber);
         commonRequest.addRequestParam("s_section", section_id);
-        commonRequest.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"20200502"));
-        commonRequest.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE,"20200503"));
+        commonRequest.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"2020-05-04 19:15"));
+        commonRequest.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE,"2020-05-04 22:15"));
 
         HttpUtils.sendPost(URL, commonRequest.getJsonStr(), new Callback() {
             @Override

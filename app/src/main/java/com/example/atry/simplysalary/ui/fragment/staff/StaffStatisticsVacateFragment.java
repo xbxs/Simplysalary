@@ -66,8 +66,8 @@ public class StaffStatisticsVacateFragment extends BaseFragment {
         CommonRequest commonRequest = new CommonRequest();
         commonRequest.setRequestCode("person_Vacate");
         commonRequest.addRequestParam("phonenumber", EMClient.getInstance().getCurrentUser());
-        commonRequest.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE, "20200502"));
-        commonRequest.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE, "20200503"));
+        commonRequest.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE, "2020-05-04 22:15"));
+        commonRequest.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE, "2020-05-06 22:15"));
         commonRequest.addRequestParam("s_section","1");
         HttpUtils.sendPost(ConstantValues.URL_VACATE + "queryVacateByTimeAndId", commonRequest.getJsonStr(), new Callback() {
             @Override

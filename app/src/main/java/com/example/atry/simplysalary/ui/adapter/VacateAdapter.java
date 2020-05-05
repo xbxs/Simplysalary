@@ -76,7 +76,10 @@ public class VacateAdapter extends BaseAdapter {
         if("1".equals(vacate.getV_status())){
             holder.tv_status_vacate.setText("待审核");
             int flag = SPUtils.getInstance().getInt(ConstantValues.LOGIN_IDENTITY,0);
-            if(1 == flag){
+            if(0 == flag){
+                holder.btn_agree_vacate.setVisibility(View.GONE);
+                holder.btn_refuse_vacate.setVisibility(View.GONE);
+            }else {
                 holder.btn_agree_vacate.setVisibility(View.VISIBLE);
                 holder.btn_refuse_vacate.setVisibility(View.VISIBLE);
             }

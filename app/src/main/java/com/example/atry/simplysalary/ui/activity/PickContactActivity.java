@@ -17,6 +17,7 @@ import com.example.atry.simplysalary.ui.adapter.PickContactAdapter;
 import com.example.atry.simplysalary.utils.ConstantValues;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
+import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class PickContactActivity extends BaseActivity {
     private List<PickUserInfo> pickUserInfos;
     private PickContactAdapter pickContactAdapter;
     private List<String> mExistMembers;
+    String flag = "statics";
+    private String[] members;
 
     @Override
     protected int setContentView() {
@@ -44,7 +47,7 @@ public class PickContactActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        flag = getIntent().getStringExtra("flag");
     }
     //设置条目点击的监听
     private void initListener() {
@@ -68,8 +71,13 @@ public class PickContactActivity extends BaseActivity {
                 List<String> names = pickContactAdapter.getPickContacts();
                 //给启动页面返回数据
                 Intent intent = new Intent();
-                intent.putExtra("members",names.toArray(new String[0]));
-                setResult(RESULT_OK,intent);
+                if("statics".equals(flag)) {
+                    intent.putExtra("members", names.toArray(new String[0]));
+                    setResult(RESULT_OK, intent);
+                }else{
+                    intent.putExtra("members",names.toArray(new String[0]));
+                    setResult(2,intent);
+                }
                 finish();
             }
         });
@@ -93,14 +101,26 @@ public class PickContactActivity extends BaseActivity {
     }
     //得到群成员
     private void getIntentData() {
-        String groupId = getIntent().getStringExtra(ConstantValues.SECTION_ID);
-        if(groupId != null){
-            EMGroup emGroup = EMClient.getInstance().groupManager().getGroup(groupId);
-            //获取群里面已经存在的成员
-            mExistMembers = emGroup.getMembers();
-        }
-        if(mExistMembers == null){
+        if (mExistMembers == null) {
             mExistMembers = new ArrayList<>();
+        }
+        if("statics".equals(flag)) {
+            String groupId = getIntent().getStringExtra(ConstantValues.SECTION_ID);
+            if (mExistMembers == null) {
+                mExistMembers = new ArrayList<>();
+            }
+            if (groupId != null) {
+                EMGroup emGroup = EMClient.getInstance().groupManager().getGroup(groupId);
+                //获取群里面已经存在的成员
+                mExistMembers = emGroup.getMembers();
+            }
+
+        }else{
+            String smember = getIntent().getStringExtra("members");
+            members = smember.split(",");
+            for(String memeber : members){
+                mExistMembers.add(memeber);
+            }
         }
 
     }

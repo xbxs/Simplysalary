@@ -5,6 +5,7 @@
     android:orientation="vertical"
     >
     <CalendarView
+        android:id="@+id/cav_arragework_boss"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:selectedWeekBackgroundColor="#aff"
@@ -12,46 +13,55 @@
         android:weekSeparatorLineColor="#ff0"
         android:unfocusedMonthDateColor="#f9f" />
 
-
-    <LinearLayout
-        android:id="@+id/content_layout"
+    <RadioGroup
+        android:id="@+id/rg_boos_arragework"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
         >
-        <Button
+        <RadioButton
+            android:id="@+id/rb_moring_boss"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:layout_marginBottom="0dp"
             android:text="早班\n8:00 - 12:00"
+            android:gravity="center"
+            android:button="@null"
             android:background="@drawable/btn_selector_bg"
             />
-        <Button
+        <RadioButton
+            android:id="@+id/rb_after_boss"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="中班\n12:00 - 17:00"
+            android:gravity="center"
             android:layout_margin="10dp"
+            android:button="@null"
             android:background="@drawable/btn_selector_bg"
             />
-        <Button
+        <RadioButton
+            android:id="@+id/rb_evening_boss"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:layout_margin="10dp"
+            android:button="@null"
             android:text="晚班\n17:00 - 22:00"
             android:background="@drawable/btn_selector_bg"
             />
-
-    </LinearLayout>
-
+    </RadioGroup>
+    <ListView
+        android:id="@+id/lv_arragework"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_purple"
+        />
 </LinearLayout>

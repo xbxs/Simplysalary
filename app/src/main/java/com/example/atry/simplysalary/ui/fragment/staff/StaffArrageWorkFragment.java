@@ -1,21 +1,20 @@
 package com.example.atry.simplysalary.ui.fragment.staff;
 
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.ui.fragment.BaseFragment;
-import com.example.atry.simplysalary.ui.view.ContentItemViewAbs;
-import com.example.atry.simplysalary.ui.view.MyTextView;
-import com.example.atry.simplysalary.utils.Uiutils;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 ;
 
@@ -23,10 +22,12 @@ import butterknife.BindView;
  * 李维: TZZ on 2019-12-30 15:10
  * 邮箱: 3182430026@qq.com
  */
-public class StaffArrageWorkFragment extends BaseFragment{
+public class StaffArrageWorkFragment extends BaseFragment {
     @BindView(R.id.content_layout)
     LinearLayout contentLayout;
-
+    @BindView(R.id.cdv_arragework_staff)
+    CalendarView cdvArrageworkStaff;
+    Unbinder unbinder;
 
 
     private Calendar now;
@@ -44,4 +45,13 @@ public class StaffArrageWorkFragment extends BaseFragment{
     protected void initData() {
 
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
 }
