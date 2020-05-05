@@ -49,8 +49,16 @@ public class SectionDetailAdapter extends BaseAdapter {
         }else{
             childHolder  = (BoosStaticsExpandAdapter.ChildHolder) convertView.getTag();
         }
-        childHolder.tv_name.setText(mUser.get(position).getName());
-        childHolder.tv_salary.setText(mUser.get(position).getAllstatics()+"￥");
+        SectionUser sectionUser = mUser.get(position);
+        String name = (null == sectionUser.getName() ? sectionUser.getPhonenumber() : sectionUser.getName());
+        childHolder.tv_name.setText(name);
+        String allstatics = sectionUser.getAllstatics();
+        if(sectionUser.getFlag().equals("salary")){
+            allstatics+="￥";
+        }else{
+            allstatics+="h";
+        }
+        childHolder.tv_salary.setText(allstatics);
         return convertView;
     }
 

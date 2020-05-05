@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.globe.BaseActivity;
@@ -16,6 +15,7 @@ import com.example.atry.simplysalary.utils.CommonRequest;
 import com.example.atry.simplysalary.utils.CommonResponse;
 import com.example.atry.simplysalary.utils.ConstantValues;
 import com.example.atry.simplysalary.utils.HttpUtils;
+import com.example.atry.simplysalary.utils.SPUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -155,6 +155,8 @@ public class LoginActivity extends BaseActivity {
                             Uiutils.toast("登录成功");
                             // 跳转到主页
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            SPUtils.getInstance().save(ConstantValues.LOGIN_IDENTITY,Integer.parseInt(map.get("u_flag")));
+                            SPUtils.getInstance().save(ConstantValues.LOGIN_SECTION,map.get("u_section"));
                             finish();
                         }
                     });

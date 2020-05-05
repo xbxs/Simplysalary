@@ -61,12 +61,6 @@
             android:layout_toRightOf="@id/iv_selfinformation"
             android:layout_centerVertical="true"
             />
-        <Button
-            android:layout_width="@dimen/ouriconwide"
-            android:layout_height="@dimen/ouriconheight"
-            android:background="@drawable/rightarrows"
-            android:layout_alignParentRight="true"
-            />
 
     </RelativeLayout>
 
@@ -91,12 +85,6 @@
             android:layout_toRightOf="@id/iv_message"
             android:layout_centerVertical="true"
             />
-        <Button
-            android:layout_width="@dimen/ouriconwide"
-            android:layout_height="@dimen/ouriconheight"
-            android:background="@drawable/rightarrows"
-            android:layout_alignParentRight="true"
-            />
 
     </RelativeLayout>
     <RelativeLayout
@@ -107,7 +95,7 @@
         android:background="@color/colorWhite"
         >
         <ImageView
-            android:id="@+id/iv_message"
+            android:id="@+id/iv_contact1"
             android:layout_width="@dimen/ouriconwide"
             android:layout_height="@dimen/ouriconheight"
             android:src="@drawable/contacts_click"
@@ -117,45 +105,31 @@
             android:layout_height="wrap_content"
             android:text="好友"
             android:textSize="@dimen/statictics_word"
-            android:layout_toRightOf="@id/iv_message"
+            android:layout_toRightOf="@id/iv_contact1"
             android:layout_centerVertical="true"
             />
-        <Button
-            android:layout_width="@dimen/ouriconwide"
-            android:layout_height="@dimen/ouriconheight"
-            android:background="@drawable/rightarrows"
-            android:layout_alignParentRight="true"
-            />
-
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/rl_section"
+        android:id="@+id/rl_create_vacate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/statictics_word_padding"
         android:background="@color/colorWhite"
         >
         <ImageView
-            android:id="@+id/iv_message"
+            android:id="@+id/iv_create_vacate"
             android:layout_width="@dimen/ouriconwide"
             android:layout_height="@dimen/ouriconheight"
-            android:src="@drawable/contacts_click"
+            android:src="@drawable/vacate"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="创建部门"
+            android:text="请假"
             android:textSize="@dimen/statictics_word"
-            android:layout_toRightOf="@id/iv_message"
+            android:layout_toRightOf="@id/iv_create_vacate"
             android:layout_centerVertical="true"
             />
-        <Button
-            android:layout_width="@dimen/ouriconwide"
-            android:layout_height="@dimen/ouriconheight"
-            android:background="@drawable/rightarrows"
-            android:layout_alignParentRight="true"
-            />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -179,13 +153,6 @@
             android:layout_toRightOf="@id/iv_privacystate"
             android:layout_centerVertical="true"
             />
-        <Button
-            android:layout_width="@dimen/ouriconwide"
-            android:layout_height="@dimen/ouriconheight"
-            android:background="@drawable/rightarrows"
-            android:layout_alignParentRight="true"
-            />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -209,13 +176,6 @@
             android:layout_toRightOf="@id/iv_aboutus"
             android:layout_centerVertical="true"
             />
-        <Button
-            android:layout_width="@dimen/ouriconwide"
-            android:layout_height="@dimen/ouriconheight"
-            android:background="@drawable/rightarrows"
-            android:layout_alignParentRight="true"
-            />
-
     </RelativeLayout>
     <Button
         android:id="@+id/btn_logout"

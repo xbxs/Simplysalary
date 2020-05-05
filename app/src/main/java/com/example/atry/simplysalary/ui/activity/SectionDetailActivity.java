@@ -23,6 +23,7 @@ import com.example.atry.simplysalary.utils.CommonRequest;
 import com.example.atry.simplysalary.utils.CommonResponse;
 import com.example.atry.simplysalary.utils.ConstantValues;
 import com.example.atry.simplysalary.utils.HttpUtils;
+import com.example.atry.simplysalary.utils.SPUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCursorResult;
@@ -55,7 +56,7 @@ public class SectionDetailActivity extends BaseActivity {
     private SectionDetailAdapter detailAdapter;
     private String mgroupId;
     private List<SectionUser> userList = new ArrayList<>();
-
+    private String flag;
     @Override
     protected int setContentView() {
         return R.layout.activity_section_detail;
@@ -65,6 +66,7 @@ public class SectionDetailActivity extends BaseActivity {
     protected void initView() {
         //指定部门编号查询
         mgroupId = getIntent().getStringExtra(ConstantValues.SECTION_ID);
+        flag = getIntent().getStringExtra("salary_or_vacate");
         tvSectionDetailname.setText(getIntent().getStringExtra(ConstantValues.SECTION_NAME));
         detailAdapter = new SectionDetailAdapter(this);
         lvSectionDetail.setAdapter(detailAdapter);
@@ -98,10 +100,11 @@ public class SectionDetailActivity extends BaseActivity {
                Intent intent = new Intent(SectionDetailActivity.this,Boss_StaffStatiticsDetailActivity.class);
                intent.putExtra("phonenumber",userList.get(position).getPhonenumber());
                intent.putExtra("section_id",mgroupId);
+               intent.putExtra("salary_or_vacate",flag);
                startActivity(intent);
            }
        });
-
+        //添加员工
         ivSectionAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +178,7 @@ public class SectionDetailActivity extends BaseActivity {
     protected void initData() {
         getMembersFromHxServer();
     }
-
+    //从服务器获取联系人
     private void getMembersFromHxServer() {
         Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
             @Override
@@ -196,17 +199,21 @@ public class SectionDetailActivity extends BaseActivity {
                     userList.clear();
                     if (members != null && members.size() >= 0) {
                         //转换，去自己的服务器查询每个用户的具体数据
-                        CommonRequest request = new CommonRequest();
-                        JSONArray jsonArray = new JSONArray();
-                        for (int i= 0;i < members.size();i++) {
-                            request.addRequestParam(members.get(i));
-                        }
-                        //添加请求参数
-                        request.addRequestParam("btime","2020042811");
-                        request.addRequestParam("etime","2020042811");
-                        request.addRequestParam("s_section",mgroupId);
-                        request.setRequestCode("section_salary");
-                        requestSelfServer(request);
+                            CommonRequest request = new CommonRequest();
+                            JSONArray jsonArray = new JSONArray();
+                            for (int i = 0; i < members.size(); i++) {
+                                request.addRequestParam(members.get(i));
+                            }
+                            //添加请求参数
+                            request.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE, "20200502"));
+                            request.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE, "20200503"));
+                            request.addRequestParam("s_section", mgroupId);
+                           if(flag.equals("salary")) {
+                               request.setRequestCode("section_salary");
+                           }else{
+                               request.setRequestCode("section_Vacate");
+                           }
+                            requestSelfServer(request);
                     }else{
                         Uiutils.toast("该部门没有人员");
                     }
@@ -225,8 +232,13 @@ public class SectionDetailActivity extends BaseActivity {
 
     //到服务器请求具体数据
     public void requestSelfServer(CommonRequest request){
-
-        HttpUtils.sendPost(ConstantValues.URL_SALARY+"querySalaryByTimeAndId",request.getJsonStr(), new okhttp3.Callback() {
+        String URL;
+        if(flag.equals("salary")){
+            URL = ConstantValues.URL_SALARY+"querySalaryByTimeAndId";
+        }else{
+            URL = ConstantValues.URL_VACATE+"queryVacateByTimeAndId";
+        }
+        HttpUtils.sendPost(URL,request.getJsonStr(), new okhttp3.Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Uiutils.toast("NetWork ERROR:"+e.getMessage());
@@ -243,8 +255,13 @@ public class SectionDetailActivity extends BaseActivity {
                     Log.i("list:",list.size()+"");
                     for(int i = 0;i < list.size();i++){
                         SectionUser sectionUser = new SectionUser();
-                        sectionUser.setName(list.get(i).get("phonenumber"));
+                        sectionUser.setName(list.get(i).get("u_name"));
                         sectionUser.setPhonenumber(list.get(i).get("phonenumber"));
+                        if(flag.equals("salary")){
+                            sectionUser.setFlag("salary");
+                        }else{
+                            sectionUser.setFlag("vacate");
+                        }
                         sectionUser.setAllstatics(list.get(i).get("allterm"));
                         userList.add(sectionUser);
                     }

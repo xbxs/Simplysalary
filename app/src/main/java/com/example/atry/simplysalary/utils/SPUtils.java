@@ -17,7 +17,7 @@ public class SPUtils {
     //得到单例
     public static SPUtils getInstance(){
         if(mSp == null){
-            mSp = Uiutils.getContext().getSharedPreferences("im", Context.MODE_PRIVATE);
+            mSp = Uiutils.getContext().getSharedPreferences(ConstantValues.CONFIG, Context.MODE_PRIVATE);
         }
         return instance;
     }

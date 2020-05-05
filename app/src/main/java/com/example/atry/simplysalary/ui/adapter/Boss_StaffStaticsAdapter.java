@@ -52,9 +52,20 @@ public class Boss_StaffStaticsAdapter extends BaseAdapter {
         }
 
         StaffSalary staffSalary = mSalarys.get(position);
-        holder.tv_statics_time.setText(staffSalary.getS_rtime());
+        String month = staffSalary.getS_rtime().substring(4,6);
+        String day = staffSalary.getS_rtime().substring(6,8);
+        holder.tv_statics_time.setText(month+"月"+day+"日");
         holder.tv_statics_term.setText(staffSalary.getS_term());
-        holder.tv_statics_shift.setText(staffSalary.getS_shift());
+        String rshift = staffSalary.getS_shift();
+        String shift = "早班";
+        if("1".equals(rshift)){
+           shift = "早班";
+        }else if("2".equals(rshift)){
+            shift = "中班";
+        }else if("3".equals(rshift)){
+            shift="晚班";
+        }
+        holder.tv_statics_shift.setText(shift);
         return convertView;
     }
 

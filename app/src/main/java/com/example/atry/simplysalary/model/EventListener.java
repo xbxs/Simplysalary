@@ -9,7 +9,6 @@ import com.example.atry.simplysalary.model.bean.GroupInfo;
 import com.example.atry.simplysalary.model.bean.InvationInfo;
 import com.example.atry.simplysalary.model.bean.User;
 import com.example.atry.simplysalary.utils.ConstantValues;
-import com.example.atry.simplysalary.utils.PrefUtils;
 import com.example.atry.simplysalary.utils.SPUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.EMContactListener;
@@ -19,7 +18,6 @@ import com.hyphenate.chat.EMMucSharedFile;
 
 import java.util.List;
 
-import static com.example.atry.simplysalary.utils.PrefUtils.*;
 
 /**
  * 李维: TZZ on 2020-01-06 18:55
@@ -82,7 +80,7 @@ public class EventListener {
             Model.getInstance().getDbManager().getInviteTableDao().addInvitation(info);
             //让邀请栏的小红点出现
             //小红点处理
-            setBoolean(Uiutils.getContext(),ConstantValues.IS_NEW_INVITE,true);
+            SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,true);
             //发送广播
             mManager.sendBroadcast(new Intent(ConstantValues.CONTACT_INVITE_CHANGED));
 
@@ -100,7 +98,7 @@ public class EventListener {
             info.setStatus(InvationInfo.InvitationStatus.INVTE_ACCEPT_BY_PEER);
             Model.getInstance().getDbManager().getInviteTableDao().addInvitation(info);
             //红点的处理
-            setBoolean(Uiutils.getContext(),ConstantValues.IS_NEW_INVITE,true);
+            SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,true);
             //发送广播
             mManager.sendBroadcast(new Intent(ConstantValues.CONTACT_INVITE_CHANGED));
         }
@@ -108,7 +106,7 @@ public class EventListener {
         @Override
         public void onFriendRequestDeclined(String s) {
             //红点的处理
-            setBoolean(Uiutils.getContext(),ConstantValues.IS_NEW_INVITE,true);
+            SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,true);
             //发送广播
             mManager.sendBroadcast(new Intent(ConstantValues.CONTACT_INVITE_CHANGED));
         }

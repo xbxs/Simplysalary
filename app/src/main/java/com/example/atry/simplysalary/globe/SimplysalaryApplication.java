@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.mob.MobSDK;
 
 import java.util.Iterator;
@@ -29,7 +31,9 @@ public class SimplysalaryApplication extends Application {
 
         handler = new Handler();
         Uithreadid = android.os.Process.myTid();
-
+        // 将“12345678”替换成您申请的APPID，申请地址：http://www.xfyun.cn
+// 请勿在“=”与appid之间添加任何空字符或者转义符
+        SpeechUtility.createUtility(context, SpeechConstant.APPID +"=5ead3268");
         initEMessage();
     }
 

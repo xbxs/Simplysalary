@@ -4,9 +4,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="common_vertical_margin">10dp</dimen>
     <dimen name="common_left_margin">16dp</dimen>
-    <dimen name="statictics_word">25sp</dimen>
+    <dimen name="statictics_word">22sp</dimen>
     <dimen name="statictics_word_padding">15dp</dimen>
     <dimen name="ouriconwide">60dp</dimen>
     <dimen name="ouriconheight">50dp</dimen>
 
+    <dimen name="picker_view_height">160dp</dimen>
+    <dimen name="date_unit_text_size">18sp</dimen>
 </resources>

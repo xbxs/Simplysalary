@@ -30,8 +30,22 @@
             android:gravity="center"
             android:layout_centerInParent="true"
             />
-
+        <ImageView
+            android:id="@+id/iv_staffstaics_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/add_white"
+            />
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_staffstatics_salary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
     <RelativeLayout
         android:layout_marginTop="2dp"
         android:layout_width="match_parent"
@@ -86,7 +100,8 @@
             android:layout_centerVertical="true"
             android:textColor="@color/colorWhite"
             />
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"

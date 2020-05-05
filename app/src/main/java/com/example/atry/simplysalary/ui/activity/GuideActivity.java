@@ -11,7 +11,7 @@ import com.example.atry.simplysalary.model.Model;
 import com.example.atry.simplysalary.model.bean.User;
 import com.example.atry.simplysalary.model.db.UserDataHelper;
 import com.example.atry.simplysalary.utils.ConstantValues;
-import com.example.atry.simplysalary.utils.PrefUtils;
+import com.example.atry.simplysalary.utils.SPUtils;
 import com.hyphenate.chat.EMClient;
 
 public class GuideActivity extends BaseActivity {
@@ -28,11 +28,11 @@ public class GuideActivity extends BaseActivity {
     protected void initView() {
         mHandler = new MyHandler();
         mHandler.sendEmptyMessageDelayed(0,3000);
-        boolean isfirstenter = PrefUtils.getBoolean(this, ConstantValues.IS_FIRSTENTER,true);
+        boolean isfirstenter = SPUtils.getInstance().getBoolean( ConstantValues.IS_FIRSTENTER,true);
         if(isfirstenter) {
             UserDataHelper dataHelper = new UserDataHelper(this);
             dataHelper.getWritableDatabase();
-            PrefUtils.setBoolean(this,ConstantValues.IS_FIRSTENTER,false);
+            SPUtils.getInstance().save(ConstantValues.IS_FIRSTENTER,false);
         }
     }
 

@@ -4,56 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
-
-    </android.support.v7.widget.Toolbar>
-
-    <include layout="@layout/top_week_title"/>
-
-    <com.example.atry.simplysalary.ui.view.ScrollLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/main_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <com.example.atry.simplysalary.calendar.views.MonthView
-                android:id="@+id/month_calendar"
+    <CalendarView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <com.example.atry.simplysalary.ui.view.MyTextView
-                android:id="@+id/week_text"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/white"
-                android:layout_width="70dp"
-                android:visibility="invisible"
-                android:textSize="12sp"
-                android:gravity="center_horizontal|center_vertical"
-                android:layout_height="18dp" />
+                android:layout_height="wrap_content"
+                android:selectedWeekBackgroundColor="#aff"
+                android:focusedMonthDateColor="#f00"
+                android:weekSeparatorLineColor="#ff0"
+                android:unfocusedMonthDateColor="#f9f" />
 
-            <LinearLayout
+
+        <LinearLayout
                 android:id="@+id/content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            </LinearLayout>
-
-
         </LinearLayout>
-
-        <com.example.atry.simplysalary.calendar.views.WeekView
-            android:id="@+id/week_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </com.example.atry.simplysalary.ui.view.ScrollLayout>
 
 </LinearLayout>

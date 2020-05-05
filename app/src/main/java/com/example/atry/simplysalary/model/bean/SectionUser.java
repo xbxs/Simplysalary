@@ -4,14 +4,15 @@ public class SectionUser {
     private String name;
     private String phonenumber;
     private String allstatics;
-
+    private String flag;
     public SectionUser() {
     }
 
-    public SectionUser(String name, String phonenumber, String allstatics) {
+    public SectionUser(String name, String phonenumber, String allstatics,String flag) {
         this.name = name;
         this.phonenumber = phonenumber;
         this.allstatics = allstatics;
+        this.flag = flag;
     }
 
     public String getName() {
@@ -38,12 +39,21 @@ public class SectionUser {
         this.allstatics = allstatics;
     }
 
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
         return "SectionUser{" +
                 "name='" + name + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
                 ", allstatics='" + allstatics + '\'' +
+                ", flag='" + flag + '\'' +
                 '}';
     }
 }

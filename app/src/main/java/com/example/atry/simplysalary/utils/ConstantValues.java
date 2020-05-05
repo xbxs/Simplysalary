@@ -24,7 +24,11 @@ public class ConstantValues {
     public static final String  SECTION_CHANGED = "section_changed";
     public static final String SECTION_ID = "section_id";
     public static final String SECTION_NAME = "section_name";
-
+    public static final String LOGIN_SECTION = "login_section";
+    public static final String LOGIN_BOSS = "login_boss";
+    //统计的日期标识
+    public static final String STATICS_LEFT_DATE = "statics_left_date";
+    public static final String STATICS_RIGHT_DATE = "statics_right_date";
     //URL
     //服务器域名
     public static final String SERVER_URL= "http://192.168.43.24:8080/SimplySalary";
@@ -39,4 +43,13 @@ public class ConstantValues {
 
     //工资的url
     public static final String URL_SALARY = SERVER_URL+"/salary/Salary_";
+
+    //排班
+    public static final String ARRAGEWORK_MORING = "arragework_moring";
+    public static final String ARRAGEWORK_AFTERNOON = "arragework_afternoon";
+    public static final String ARRAGEWORK_EVENING = "arragework_evening";
+    //请假
+    public static final String URL_VACATE = SERVER_URL+"/vacate/Vacate_";
+
+
 }

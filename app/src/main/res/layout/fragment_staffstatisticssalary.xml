@@ -20,7 +20,7 @@
 
             >
             <TextView
-                android:id="@+id/tv_income"
+                android:id="@+id/tv_allincome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -46,7 +46,7 @@
             android:padding="@dimen/statictics_word_padding"
             >
             <TextView
-                android:id="@+id/tv_income"
+                android:id="@+id/tv_bas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -72,7 +72,7 @@
             android:padding="@dimen/statictics_word_padding"
             >
             <TextView
-                android:id="@+id/tv_income"
+                android:id="@+id/tv_allterm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -83,7 +83,7 @@
                 android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加班"
+                android:text="工时"
                 android:textSize="@dimen/statictics_word"
                 android:textColor="@color/colorWhite"
                 />
@@ -98,7 +98,7 @@
             android:padding="@dimen/statictics_word_padding"
             >
             <TextView
-                android:id="@+id/tv_income"
+                android:id="@+id/tv_wage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -109,7 +109,7 @@
                 android:layout_marginTop="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="调休"
+                android:text="时薪"
                 android:textSize="@dimen/statictics_word"
                 android:textColor="@color/colorWhite"
                 />
@@ -123,90 +123,22 @@
         android:background="@drawable/bg_purple"
         android:orientation="vertical"
         android:padding="10dp"
+        android:layout_marginBottom="40dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="加班详情"
+            android:text="上班详情"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/statictics_word"
             android:drawableLeft="@drawable/computer"
             />
-        <LinearLayout
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="早班"
-                android:gravity="center"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="0h"
-                android:gravity="center"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="中班"
-                android:gravity="center"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="0h"
-                android:gravity="center"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="20dp"
+        <ListView
+            android:id="@+id/lv_staffsalary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="晚班"
-                android:gravity="center"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="0h"
-                android:gravity="center"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-        </LinearLayout>
-
+            />
     </LinearLayout>
 
 </LinearLayout>

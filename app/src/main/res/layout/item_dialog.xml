@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="修改工资"
+        android:textSize="35sp"
+        android:gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/et_itemdialog_bas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="基本工资（输入数字即可）"
+        android:textSize="25sp"
+        android:inputType="number"
+    />
+    <EditText
+        android:id="@+id/et_itemdialog_wage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="小时工资（输入数字即可）"
+        android:textSize="25sp"
+        android:inputType="number"
+    />
+
+</LinearLayout>

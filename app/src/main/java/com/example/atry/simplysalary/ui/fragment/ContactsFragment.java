@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,7 @@ import com.example.atry.simplysalary.ui.activity.AddContactActivity;
 import com.example.atry.simplysalary.ui.activity.ChatActivity;
 import com.example.atry.simplysalary.ui.activity.InviteActivity;
 import com.example.atry.simplysalary.utils.ConstantValues;
-import com.example.atry.simplysalary.utils.PrefUtils;
+import com.example.atry.simplysalary.utils.SPUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.EaseConstant;
@@ -49,7 +48,7 @@ public class ContactsFragment extends EaseContactListFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             mIv_contact_red.setVisibility(View.VISIBLE);
-            PrefUtils.setBoolean(Uiutils.getContext(),ConstantValues.IS_NEW_INVITE,true);
+            SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,true);
         }
     };
     private BroadcastReceiver ContactChangeReceiver = new BroadcastReceiver() {
@@ -75,7 +74,7 @@ public class ContactsFragment extends EaseContactListFragment {
             public void onClick(View view) {
                 //红点处理
                 mIv_contact_red.setVisibility(View.GONE);
-                PrefUtils.setBoolean(Uiutils.getContext(),ConstantValues.IS_NEW_INVITE,false);
+                SPUtils.getInstance().save(ConstantValues.IS_NEW_INVITE,false);
                 //跳转页面
                 startActivity(new Intent(getActivity(), InviteActivity.class));
 
@@ -105,7 +104,7 @@ public class ContactsFragment extends EaseContactListFragment {
         });
 
         //初始化小红点显示
-        boolean isNewInvite = PrefUtils.getBoolean(Uiutils.getContext(), ConstantValues.IS_NEW_INVITE,false);
+        boolean isNewInvite = SPUtils.getInstance().getBoolean(ConstantValues.IS_NEW_INVITE,false);
         mIv_contact_red.setVisibility(isNewInvite ? View.VISIBLE : View.GONE);
 
         //注册广播
