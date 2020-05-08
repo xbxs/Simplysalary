@@ -18,8 +18,12 @@
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:divider="@drawable/bg_line"
+        android:dividerPadding="5dp"
+        android:showDividers="middle"
+        >
     </LinearLayout>
 
 </LinearLayout>

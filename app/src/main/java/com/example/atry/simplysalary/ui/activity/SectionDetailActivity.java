@@ -132,6 +132,7 @@ public class SectionDetailActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 Uiutils.toast("发送邀请成功");
+                                toServerUpdateUserSection(mgroupId,EMClient.getInstance().groupManager().getGroup(mgroupId).getOwner(),members);
                                 getMembersFromHxServer();
                             }
                         });
@@ -231,7 +232,32 @@ public class SectionDetailActivity extends BaseActivity {
     public void onClick(View v) {
 
     }
+   //去服务器将用户的群组信息更新
+    private void toServerUpdateUserSection(String groupId, String ower,String[] members) {
+        CommonRequest commonRequest = new CommonRequest();
+        commonRequest.setRequestCode("newgroup");
+        commonRequest.addRequestParam("groupId",groupId);
+        commonRequest.addRequestParam("ower",ower);
+        for(String uphone : members){
+            commonRequest.addRequestParam(uphone);
+        }
+        HttpUtils.sendPost(ConstantValues.URL_USER+"updateUser",commonRequest.getJsonStr(), new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Uiutils.toast("NetWork ERROR"+e.getMessage());
+            }
 
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                CommonResponse res = new CommonResponse(response.body().string());
+                String resCode = res.getResCode();
+                String resMsg = res.getResMsg();
+                if(resCode.equals("0")){
+
+                }
+            }
+        });
+    }
     //到服务器请求具体数据
     public void requestSelfServer(CommonRequest request){
         String URL;

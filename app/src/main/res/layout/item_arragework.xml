@@ -12,11 +12,11 @@
         android:layout_centerVertical="true"
         android:textSize="35sp"
         />
-    <Button
+    <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
-        android:background="@drawable/subtract"
+        android:src="@drawable/subtract"
         />
 
 </RelativeLayout>

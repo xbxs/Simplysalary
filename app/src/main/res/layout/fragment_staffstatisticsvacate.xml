@@ -11,79 +11,23 @@
         >
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
             android:padding="@dimen/statictics_word_padding"
             >
             <TextView
-                android:id="@+id/tv_staffvacate_moring"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="@dimen/statictics_word"
+                android:text="总时长："
+                android:textSize="35sp"
                 android:textColor="@color/colorWhite"
                 />
-            <TextView
-                android:layout_marginTop="7dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="早班"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="@dimen/statictics_word_padding"
-            >
-            <TextView
-                android:id="@+id/tv_staffvacate_afternoon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-            <TextView
-                android:layout_marginTop="7dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="中班"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="@dimen/statictics_word_padding"
-            >
             <TextView
                 android:id="@+id/tv_staffvacate_evening"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="@dimen/statictics_word"
-                android:textColor="@color/colorWhite"
-                />
-            <TextView
-                android:layout_marginTop="7dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="晚班"
-                android:textSize="@dimen/statictics_word"
+                android:text="20h"
+                android:textSize="35sp"
                 android:textColor="@color/colorWhite"
                 />
         </LinearLayout>

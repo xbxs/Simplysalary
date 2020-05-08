@@ -59,14 +59,7 @@ public class MainActivity extends BaseActivity {
         rgMenu.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                Log.i("TAG","00000:"+i);
                 switch (i) {
-//                    case R.id.rb_message:
-//                        vpMenu.setCurrentItem(0);
-//                        break;
-//                    case R.id.rb_contact:
-//                        vpMenu.setCurrentItem(1);
-//                        break;
                     case R.id.rb_arrage_work:
                         vpMenu.setCurrentItem(0);
                         break;

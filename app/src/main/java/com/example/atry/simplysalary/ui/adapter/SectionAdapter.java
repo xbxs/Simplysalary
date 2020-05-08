@@ -49,8 +49,6 @@ public class SectionAdapter extends BaseAdapter {
             groupHolder = (BoosStaticsExpandAdapter.GroupHolder) convertView.getTag();
         }
         //生成viewholder
-
-
         //赋值
 
         groupHolder.tv_sectionname.setText(emGroupList.get(position).getGroupName());

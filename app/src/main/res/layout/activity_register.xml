@@ -44,11 +44,34 @@
 
                 />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_register_name"
+            style="@style/style_register_login"
+            android:layout_below="@id/ll_register_number"
+            android:layout_marginTop="15dp"
+            >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:alpha="0.5"
+                android:src="@drawable/picture_number" />
+
+            <EditText
+                android:id="@+id/et_register_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="请填写姓名"
+                android:maxLength="11"
+
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_register_verify"
             style="@style/style_register_login"
-            android:layout_below="@id/ll_register_number"
+            android:layout_below="@id/ll_register_name"
             android:background="@null"
             android:padding="0dp">
 

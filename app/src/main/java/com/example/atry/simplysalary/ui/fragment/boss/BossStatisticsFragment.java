@@ -235,11 +235,12 @@ public class BossStatisticsFragment extends BaseFragment {
                        return;
                    }else{
                        tv.setText(year+"-"+strmonth+"-"+strdayOfMonth);
-                       SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE,year+strmonth+strdayOfMonth+" "+time);
+                       SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE, year + "-" + strmonth + "-" + strdayOfMonth+" "+time);
+
                    }
                }else {
                    tv.setText(year+"-"+strmonth+"-"+strdayOfMonth);
-                   SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,year+strmonth+strdayOfMonth+" "+time);
+                   SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,year+"-"+strmonth+"-"+strdayOfMonth+" "+time);
                }
            }
        },calendar.get(Calendar.YEAR)

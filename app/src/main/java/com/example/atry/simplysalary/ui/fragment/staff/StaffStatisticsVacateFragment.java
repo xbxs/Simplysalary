@@ -38,10 +38,6 @@ import okhttp3.Response;
  * 邮箱: 3182430026@qq.com
  */
 public class StaffStatisticsVacateFragment extends BaseFragment {
-    @BindView(R.id.tv_staffvacate_moring)
-    TextView tvStaffvacateMoring;
-    @BindView(R.id.tv_staffvacate_afternoon)
-    TextView tvStaffvacateAfternoon;
     @BindView(R.id.tv_staffvacate_evening)
     TextView tvStaffvacateEvening;
     @BindView(R.id.lv_vacate)
@@ -82,26 +78,22 @@ public class StaffStatisticsVacateFragment extends BaseFragment {
                 String resMsg = res.getResMsg();
                 if (resCode.equals("0")) {
                     HashMap<String, String> propertyMap = res.getPropertyMap();
-                    String allmoring = propertyMap.get("allmoring");
-                    String allafternoon = propertyMap.get("allafternoon");
-                    String allevening = propertyMap.get("allevening");
-                    String allterm = propertyMap.get("term");
-
+                    String allterm = propertyMap.get("allterm");
+                    staffSalaryList.clear();
                     List<HashMap<String, String>> list = res.getMapList();
                     for (int i = 0; i < list.size(); i++) {
                         StaffSalary staffSalary = new StaffSalary();
                         staffSalary.setS_rtime(list.get(i).get("s_rtime"));
                         staffSalary.setS_term(list.get(i).get("s_term"));
                         staffSalary.setS_shift(list.get(i).get("s_shift"));
+                        staffSalary.setS_wage(list.get(i).get("s_wage"));
                         staffSalaryList.add(staffSalary);
                     }
                     Uiutils.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             staffStaticsSalaryAdapter.refresh(staffSalaryList);
-                            tvStaffvacateMoring.setText(allmoring);
-                            tvStaffvacateAfternoon.setText(allafternoon);
-                            tvStaffvacateEvening.setText(allevening);
+                            tvStaffvacateEvening.setText(allterm);
                         }
                     });
                 } else {

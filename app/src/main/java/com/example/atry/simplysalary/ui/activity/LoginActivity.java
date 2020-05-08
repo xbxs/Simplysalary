@@ -19,11 +19,14 @@ import com.example.atry.simplysalary.utils.SPUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -149,6 +152,7 @@ public class LoginActivity extends BaseActivity {
                     User user = new User(map.get("u_phone"),map.get("u_name"),map.get("u_head"),Integer.parseInt(map.get("u_flag")),map.get("u_section"),Integer.parseInt(map.get("u_bas")),Integer.parseInt(map.get("u_wage")));
                    //保存到本地数据库
                     insertdb(user);
+                    getContactFromHXServer();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -182,6 +186,30 @@ public class LoginActivity extends BaseActivity {
         }
         return false;
     }
+    private void getContactFromHXServer() {
+        //1.开启网络连接
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<String> hxids = EMClient.getInstance().contactManager().getAllContactsFromServer();
+                    //校验
+                    if(hxids != null && hxids.size() >= 0){
+                        List<User> userList = new ArrayList<>();
+                        for(String hxid : hxids){
+                            User user = new User();
+                            user.setPhonenumber(hxid);
+                            userList.add(user);
+                        }
 
+                        //保存好友信息到本地数据库
+                        Model.getInstance().getDbManager().getContactTableDao().saveContacts(userList,true);
 
+                    }
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

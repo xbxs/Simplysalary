@@ -12,16 +12,27 @@ import android.widget.EditText;
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.globe.BaseActivity;
 import com.example.atry.simplysalary.model.Model;
+import com.example.atry.simplysalary.utils.CommonRequest;
+import com.example.atry.simplysalary.utils.CommonResponse;
 import com.example.atry.simplysalary.utils.ConstantValues;
+import com.example.atry.simplysalary.utils.HttpUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupManager;
 import com.hyphenate.chat.EMGroupOptions;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.exceptions.HyphenateException;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Response;
 
 public class NewGroupActivity extends BaseActivity {
 
@@ -87,7 +98,8 @@ public class NewGroupActivity extends BaseActivity {
                 options.style = emGroupStyle;
 
                 try {
-                    EMClient.getInstance().groupManager().createGroup(groupname,groupdes,members,"申请加入群",options);
+                    EMGroup emGroup = EMClient.getInstance().groupManager().createGroup(groupname,groupdes,members,"申请加入群",options);
+                    toServerUpdateUserSection(emGroup.getGroupId(),emGroup.getOwner(),members);
                     Uiutils.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -107,6 +119,32 @@ public class NewGroupActivity extends BaseActivity {
                     });
                 }
 
+            }
+        });
+    }
+    //去服务器将用户的群组信息更新
+    private void toServerUpdateUserSection(String groupId, String ower,String[] members) {
+        CommonRequest commonRequest = new CommonRequest();
+        commonRequest.setRequestCode("newgroup");
+        commonRequest.addRequestParam("groupId",groupId);
+        commonRequest.addRequestParam("ower",ower);
+        for(String uphone : members){
+            commonRequest.addRequestParam(uphone);
+        }
+        HttpUtils.sendPost(ConstantValues.URL_USER+"updateUser",commonRequest.getJsonStr(), new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Uiutils.toast("NetWork ERROR"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                CommonResponse res = new CommonResponse(response.body().string());
+                String resCode = res.getResCode();
+                String resMsg = res.getResMsg();
+                if(resCode.equals("0")){
+
+                }
             }
         });
     }

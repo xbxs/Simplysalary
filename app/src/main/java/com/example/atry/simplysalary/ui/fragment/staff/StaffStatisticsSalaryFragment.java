@@ -65,6 +65,10 @@ public class StaffStatisticsSalaryFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        requestServerStaffStatics();
+    }
+
+    protected void requestServerStaffStatics() {
         CommonRequest commonRequest = new CommonRequest();
         commonRequest.setRequestCode("person_salary");
         commonRequest.addRequestParam("phonenumber", EMClient.getInstance().getCurrentUser());
@@ -90,13 +94,14 @@ public class StaffStatisticsSalaryFragment extends BaseFragment {
                     String u_wage = propertyMap.get("u_wage");
                     Double allmoney = (Double.parseDouble(propertyMap.get("allterm")) + Integer.parseInt(u_bas));
                     String allterm = propertyMap.get("term");
-
+                    staffSalaryList.clear();
                     List<HashMap<String, String>> list = res.getMapList();
                     for (int i = 0; i < list.size(); i++) {
                         StaffSalary staffSalary = new StaffSalary();
                         staffSalary.setS_rtime(list.get(i).get("s_rtime"));
                         staffSalary.setS_term(list.get(i).get("s_term"));
                         staffSalary.setS_shift(list.get(i).get("s_shift"));
+                        staffSalary.setS_wage(list.get(i).get("s_wage"));
                         staffSalaryList.add(staffSalary);
                     }
                     Uiutils.runOnUiThread(new Runnable() {
@@ -125,9 +130,5 @@ public class StaffStatisticsSalaryFragment extends BaseFragment {
         return rootView;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 }

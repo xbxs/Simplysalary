@@ -32,6 +32,7 @@ import com.hyphenate.exceptions.HyphenateException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -112,27 +113,27 @@ public class CreateVacateActivity extends BaseActivity {
             }
         });
 
-        initTimerPickerBegin(tvBegintimeVacate);
-        initTimerPickerEnd(tvEndtimeVacate);
+        initTimerPickerBegin();
+        initTimerPickerEnd();
     }
 
     private void requestServerAddVacate() {
-        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
-            @Override
-            public void run() {
-                String groupId = SPUtils.getInstance().getString(ConstantValues.LOGIN_SECTION,"110946096840705");
-                //根据群组ID从本地获取群组基本信息
-                EMGroup group = EMClient.getInstance().groupManager().getGroup(groupId);
-                //根据群组ID从服务器获取群组基本信息
-                SPUtils.getInstance().save(ConstantValues.LOGIN_BOSS,group.getOwner());
-                try {
-                    EMGroup groupser = EMClient.getInstance().groupManager().getGroupFromServer(groupId);
-                    SPUtils.getInstance().save(ConstantValues.LOGIN_BOSS,groupser.getOwner());
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                String groupId = SPUtils.getInstance().getString(ConstantValues.LOGIN_SECTION,"110946096840705");
+//                //根据群组ID从本地获取群组基本信息
+//                EMGroup group = EMClient.getInstance().groupManager().getGroup(groupId);
+//                //根据群组ID从服务器获取群组基本信息
+//                SPUtils.getInstance().save(ConstantValues.LOGIN_BOSS,group.getOwner());
+//                try {
+//                    EMGroup groupser = EMClient.getInstance().groupManager().getGroupFromServer(groupId);
+//                    SPUtils.getInstance().save(ConstantValues.LOGIN_BOSS,groupser.getOwner());
+//                } catch (HyphenateException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
         String time = simpleDateFormat.format(date);
@@ -141,9 +142,8 @@ public class CreateVacateActivity extends BaseActivity {
         commonRequest.addRequestParam("v_btime",tvBegintimeVacate.getText().toString());
         commonRequest.addRequestParam("v_term",tvTermVacate.getText().toString());
         commonRequest.addRequestParam("v_shift","1");
-        commonRequest.addRequestParam("v_section", SPUtils.getInstance().getString(ConstantValues.LOGIN_SECTION,"110946096840705"));
+//        commonRequest.addRequestParam("v_section", SPUtils.getInstance().getString(ConstantValues.LOGIN_SECTION,"110946096840705"));
         commonRequest.addRequestParam("v_reason",etReasonVacate.getText().toString());
-        commonRequest.addRequestParam("v_tuser",SPUtils.getInstance().getString(ConstantValues.LOGIN_BOSS,"15643084346"));
         commonRequest.addRequestParam("v_status","1");
         commonRequest.addRequestParam("v_etime",tvEndtimeVacate.getText().toString());
         String v_type = tvTypeVacate.getText().toString();
@@ -167,7 +167,6 @@ public class CreateVacateActivity extends BaseActivity {
         vacate.setV_term(tvTermVacate.getText().toString());
         vacate.setV_shift("1");
         vacate.setV_section(SPUtils.getInstance().getString(ConstantValues.LOGIN_SECTION,"110946096840705"));
-        vacate.setV_tuser(SPUtils.getInstance().getString(ConstantValues.LOGIN_BOSS,"15643084346"));
         vacate.setV_status("1");
         vacate.setV_etime(tvEndtimeVacate.getText().toString());
         vacate.setV_type(v_type);
@@ -233,23 +232,21 @@ public class CreateVacateActivity extends BaseActivity {
         builder.show();
     }
 
-    private void initTimerPickerBegin(TextView tvdata) {
+    private void initTimerPickerBegin() {
         String beginTime = "2018-10-17 18:00";
         String endTime = "2040-10-17 18:00";
         long endTimestamp = System.currentTimeMillis();
-        tvdata.setText(DateFormatUtils.long2Str(endTimestamp, true));
-        tvdata.setText(DateFormatUtils.long2Str(endTimestamp, true));
+        tvBegintimeVacate.setText(DateFormatUtils.long2Str(endTimestamp, true));
+        tvBegintimeVacate.setText(DateFormatUtils.long2Str(endTimestamp, true));
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mTimerPickerBegin = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
                 String date = DateFormatUtils.long2Str(timestamp, true);
-                String afterdata = tvBegintimeVacate.getText().toString();
-                if (date.compareTo(afterdata) == 1 || date.compareTo(afterdata) == 0) {
-                    tvEndtimeVacate.setText("请选择");
-                }
-                tvdata.setText(date);
-                if (judgeTerm()) {
+                String afterdata = tvEndtimeVacate.getText().toString();
+
+                if (judgeTerm(date,afterdata)) {
+                    tvBegintimeVacate.setText(date);
                     getVacateTerm(date, afterdata);
                 }
             }
@@ -264,26 +261,22 @@ public class CreateVacateActivity extends BaseActivity {
         mTimerPickerBegin.setCanShowAnim(true);
     }
 
-    private void initTimerPickerEnd(TextView tvdata) {
+    private void initTimerPickerEnd() {
         String beginTime = "2018-10-17 18:00";
         String endTime = "2040-10-17 18:00";
         long endTimestamp = System.currentTimeMillis();
-        tvdata.setText(DateFormatUtils.long2Str(endTimestamp, true));
-        tvdata.setText(DateFormatUtils.long2Str(endTimestamp, true));
+        tvEndtimeVacate.setText(DateFormatUtils.long2Str(endTimestamp, true));
+        tvEndtimeVacate.setText(DateFormatUtils.long2Str(endTimestamp, true));
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mTimerPickerEnd = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
                 String date = DateFormatUtils.long2Str(timestamp, true);
                 String befordate = tvBegintimeVacate.getText().toString();
-                if (date.compareTo(befordate) == -1 || date.compareTo(befordate) == 0) {
-                    tvBegintimeVacate.setText("请选择");
-                }
-                tvdata.setText(date);
-                if (judgeTerm()) {
+                if (judgeTerm(befordate,date)) {
+                    tvEndtimeVacate.setText(date);
                     getVacateTerm(befordate, date);
                 }
-
             }
         }, beginTime, endTime);
         // 允许点击屏幕或物理返回键关闭
@@ -296,12 +289,6 @@ public class CreateVacateActivity extends BaseActivity {
         mTimerPickerEnd.setCanShowAnim(true);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     //为时长赋值
     public void getVacateTerm(String sbegindate, String senddate) {
@@ -310,19 +297,20 @@ public class CreateVacateActivity extends BaseActivity {
             Date enddate = simpleDateFormat.parse(senddate);
             long begindatel = begindate.getTime();
             long enddatel = enddate.getTime();
-            long term = (enddatel - begindatel) / (1000 * 60 * 60);
+            double term = (long) (enddatel - begindatel) / (1000 * 60 * 60.0);
+            DecimalFormat decimalFormat = new DecimalFormat("#.0");
 
-            tvTermVacate.setText(term + "");
+            tvTermVacate.setText(decimalFormat.format(term));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
     }
 
-    public boolean judgeTerm() {
-        String beforeDate = tvBegintimeVacate.getText().toString();
-        String endDate = tvEndtimeVacate.getText().toString();
-        if ((!beforeDate.equals("请选择")) && (!endDate.equals("请选择")) && (endDate.compareTo(beforeDate) == 1)) {
+    public boolean judgeTerm(String beforeDate,String endDate) {
+
+        Log.i("TAG","beforedate:"+beforeDate+"    endDate"+endDate);
+        if ((!beforeDate.equals("请选择")) && (!endDate.equals("请选择")) && (endDate.compareTo(beforeDate) > 0)) {
             return true;
         }
         return false;

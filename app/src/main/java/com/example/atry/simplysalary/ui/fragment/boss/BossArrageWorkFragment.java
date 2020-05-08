@@ -1,12 +1,16 @@
 package com.example.atry.simplysalary.ui.fragment.boss;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
@@ -16,6 +20,7 @@ import android.widget.RadioGroup;
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.model.bean.Schedule;
 import com.example.atry.simplysalary.model.bean.Vacate;
+import com.example.atry.simplysalary.ui.activity.Boss_StaffStatiticsDetailActivity;
 import com.example.atry.simplysalary.ui.activity.PickContactActivity;
 import com.example.atry.simplysalary.ui.adapter.BossArrageWorkAdapter;
 import com.example.atry.simplysalary.ui.fragment.BaseFragment;
@@ -103,7 +108,9 @@ public class BossArrageWorkFragment extends BaseFragment {
                 requestServerVacate();
             }
         });
-
+        rbMoringBoss.setText("中班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_MORING,"9:00-12:00"));
+        rbAfterBoss.setText("午班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_AFTERNOON,"12:00-17:00"));
+        rbEveningBoss.setText("晚班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_EVENING,"17:00-22:00"));
         rgBoosArragework.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -149,45 +156,112 @@ public class BossArrageWorkFragment extends BaseFragment {
             }
         });
         lvArragework.addFooterView(view);
+        lvArragework.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("TAG","position"+position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("删除");
+                builder.setMessage("确定移除此排班吗?");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Schedule schedule;
+                        if(rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_moring_boss){
+                           schedule = mlistMoring.get(position);
+                        }else if(rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_after_boss){
+                            schedule = mlistAfter.get(position);
+                        }else {
+                           schedule = mlistEvening.get(position);
+                        }
+                        requestServerDeleteArrageWork(schedule.getS_id(),position);
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
         lvArragework.setAdapter(bossArrageWorkAdapter);
 
+    }
+    //去服务器删除排班信息
+    private void requestServerDeleteArrageWork(String s_id,int position) {
+        CommonRequest commonRequest = new CommonRequest();
+        commonRequest.addRequestParam("id",s_id);
+        HttpUtils.sendPost(ConstantValues.URL_SCHEDULE+"deleteSchedule",commonRequest.getJsonStr(), new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Uiutils.toast("NetWork ERROR"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                CommonResponse res = new CommonResponse(response.body().string());
+                String resCode = res.getResCode();
+                String resMsg = res.getResMsg();
+                if(resCode.equals("0")){
+                    Uiutils.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_moring_boss){
+                                mlistMoring.remove(position);
+                                bossArrageWorkAdapter.refresh(mlistMoring);
+                            }else if(rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_after_boss){
+                                mlistAfter.remove(position);
+                                bossArrageWorkAdapter.refresh(mlistAfter);
+                            }else {
+                                mlistEvening.remove(position);
+                                bossArrageWorkAdapter.refresh(mlistEvening);
+                            }
+                        }
+                    });
+                }
+                Uiutils.toast(resMsg);
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 2){
+        if(1 == resultCode) {
             //获得选择的成员信息
             StringBuffer buffer = new StringBuffer();
             String[] members = data.getStringArrayExtra("members");
             String flag = "1";
-            if(rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_moring_boss){
-                    for(String  member : members){
-                        if(!mlistMoring.contains(member)){
-                            buffer.append(member+",");
-                        }
-                        flag = "1";
+            if (rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_moring_boss) {
+                for (String member : members) {
+                    if (!mlistMoring.contains(member)) {
+                        buffer.append(member + ",");
                     }
-            }else if(rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_after_boss){
-                for(String  member : members){
-                    if(!mlistAfter.contains(member)){
-                        buffer.append(member+",");
+                    flag = "1";
+                }
+            } else if (rgBoosArragework.getCheckedRadioButtonId() == R.id.rb_after_boss) {
+                for (String member : members) {
+                    if (!mlistAfter.contains(member)) {
+                        buffer.append(member + ",");
                     }
                     flag = "2";
                 }
-            }else {
-                for(String  member : members){
-                    if(!mlistEvening.contains(member)){
-                        buffer.append(member+",");
+            } else {
+                for (String member : members) {
+                    if (!mlistEvening.contains(member)) {
+                        buffer.append(member + ",");
                     }
                 }
-                flag="3";
+                flag = "3";
             }
 
-            if(!TextUtils.isEmpty(buffer.toString())){
-                addToServerVacate(buffer.toString(),flag);
+            if (!TextUtils.isEmpty(buffer.toString())) {
+                addToServerVacate(buffer.toString(), flag);
             }
         }
+
     }
 
     @Override
@@ -198,6 +272,8 @@ public class BossArrageWorkFragment extends BaseFragment {
 
 //到服务器去请求排班数据
     private void requestServerVacate() {
+
+        rbMoringBoss.setChecked(true);
         CommonRequest request = new CommonRequest();
         request.addRequestParam("s_time",s_time);
         HttpUtils.sendPost(ConstantValues.URL_SCHEDULE+"querySchedulesByTime",request.getJsonStr(), new okhttp3.Callback() {
@@ -212,11 +288,15 @@ public class BossArrageWorkFragment extends BaseFragment {
                 String resCode = res.getResCode();
                 String resMsg = res.getResMsg();
                 if("0".equals(resCode)){
+                    mlistMoring.clear();
+                    mlistAfter.clear();
+                    mlistEvening.clear();
                     List<HashMap<String, String>> list = res.getMapList();
                     for(int i=0;i < list.size();i++){
                         Schedule schedule = new Schedule();
                         schedule.setS_id(list.get(i).get("s_id"));
                         schedule.setU_phone(list.get(i).get("u_phone"));
+                        schedule.setU_phone(list.get(i).get("u_name"));
                         schedule.setS_time(list.get(i).get("s_time"));
                         schedule.setS_shift(list.get(i).get("s_shift"));
                         schedule.setS_term(list.get(i).get("s_term"));
@@ -278,11 +358,11 @@ public class BossArrageWorkFragment extends BaseFragment {
                 String resMsg = res.getResMsg();
 
                 if(resCode.equals("0")){
-                    requestServerVacate();
+
                     Uiutils.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            rbMoringBoss.setChecked(true);
+                            requestServerVacate();
                         }
                     });
 

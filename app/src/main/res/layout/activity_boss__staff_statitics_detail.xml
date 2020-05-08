@@ -131,6 +131,16 @@
                 android:textSize="30sp"
                 />
             <TextView
+                android:id="@+id/tv_staticslist_wage_"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="时薪"
+                android:textSize="30sp"
+                />
+            <TextView
+                android:id="@+id/tv_statics_detail_term"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -138,6 +148,7 @@
                 android:text="班次"
                 android:textSize="30sp"
                 />
+
         </LinearLayout>
         <ListView
             android:id="@+id/lv_staffstaticsdetail"

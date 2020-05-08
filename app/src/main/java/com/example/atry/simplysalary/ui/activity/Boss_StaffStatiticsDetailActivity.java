@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.atry.simplysalary.R;
 import com.example.atry.simplysalary.globe.BaseActivity;
-import com.example.atry.simplysalary.model.bean.SectionUser;
 import com.example.atry.simplysalary.model.bean.StaffSalary;
 import com.example.atry.simplysalary.ui.adapter.Boss_StaffStaticsAdapter;
 import com.example.atry.simplysalary.utils.CommonRequest;
@@ -56,6 +56,10 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
     LinearLayout llStaffstaticsSalary;
     @BindView(R.id.iv_staffstaics_add)
     ImageView ivStaffstaicsAdd;
+    @BindView(R.id.tv_statics_detail_term)
+    TextView tvStaticsDetailTerm;
+    @BindView(R.id.tv_staticslist_wage_)
+    TextView tvStaticslistWage;
     private String phonenumber, section_id;
     private Boss_StaffStaticsAdapter boss_staffStaticsAdapter;
     private List<StaffSalary> salaryList = new ArrayList<>();
@@ -82,9 +86,11 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
                 finish();
             }
         });
-        if(flag.equals("vacate")){
+        if (flag.equals("vacate")) {
             llStaffstaticsSalary.setVisibility(View.GONE);
             ivStaffstaicsAdd.setVisibility(View.GONE);
+            tvStaticslistWage.setVisibility(View.GONE);
+            tvStaticsDetailTerm.setText("类型");
         }
         llStaffstaticsSalary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +102,13 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
         ivStaffstaicsAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if("salary".equals(flag)) {
+                if ("salary".equals(flag)) {
                     Intent intent = new Intent(Boss_StaffStatiticsDetailActivity.this, RecordSalaryActivity.class);
                     intent.putExtra("addname", maddname);
                     intent.putExtra("phonenumber", phonenumber);
                     intent.putExtra("s_section", section_id);
                     intent.putExtra("u_wage", u_wage);
                     startActivityForResult(intent, 1);
-                }else{
-
                 }
             }
         });
@@ -112,42 +116,41 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
         lvStaffstaticsdetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    StaffSalary staffSalary = salaryList.get(position);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Boss_StaffStatiticsDetailActivity.this);
-                    builder.setTitle("删除");
-                    String month = staffSalary.getS_rtime().substring(4,6);
-                    String day = staffSalary.getS_rtime().substring(6,8);
-                    builder.setMessage("删除这条"+month+"月"+day+"日的记录吗？");
-                    AlertDialog dialog = builder.create();
-                    builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            requestServerDeleteStatics(staffSalary,position);
-                        }
-                    });
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
+                StaffSalary staffSalary = salaryList.get(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Boss_StaffStatiticsDetailActivity.this);
+                builder.setTitle("删除");
+                String month = staffSalary.getS_rtime().substring(5, 7);
+                String day = staffSalary.getS_rtime().substring(8, 10);
+                builder.setMessage("删除这条" + month + "月" + day + "日的记录吗？");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestServerDeleteStatics(staffSalary, position);
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
     }
 
-    private void requestServerDeleteStatics(StaffSalary staffSalary,int position) {
+    private void requestServerDeleteStatics(StaffSalary staffSalary, int position) {
         CommonRequest commonRequest = new CommonRequest();
-        commonRequest.addRequestParam("u_phone",phonenumber);
-        commonRequest.addRequestParam("s_section",section_id);
-        commonRequest.addRequestParam("s_rtime",staffSalary.getS_rtime());
+        commonRequest.addRequestParam("u_phone", phonenumber);
+        commonRequest.addRequestParam("s_section", section_id);
+        commonRequest.addRequestParam("s_rtime", staffSalary.getS_rtime());
         String URL;
-        if("salary".equals(flag)){
-            URL = ConstantValues.URL_SALARY+"deleteSalary";
-        }else{
-            URL = ConstantValues.URL_VACATE+"deleteVacate";
+        if ("salary".equals(flag)) {
+            URL = ConstantValues.URL_SALARY + "deleteSalary";
+        } else {
+            URL = ConstantValues.URL_VACATE + "deleteVacate";
         }
-        HttpUtils.sendPost(URL,commonRequest.getJsonStr(), new Callback() {
+        HttpUtils.sendPost(URL, commonRequest.getJsonStr(), new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Uiutils.toast("NetWork_ERROR:" + e.getMessage());
@@ -158,7 +161,7 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
                 CommonResponse res = new CommonResponse(response.body().string());
                 String resCode = res.getResCode();
                 String resMsg = res.getResMsg();
-                if("0".equals(resCode)){
+                if ("0".equals(resCode)) {
                     salaryList.remove(position);
                     runOnUiThread(new Runnable() {
                         @Override
@@ -178,17 +181,17 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
 
         CommonRequest commonRequest = new CommonRequest();
         String URL;
-        if(flag.equals("salary")){
+        if (flag.equals("salary")) {
             URL = ConstantValues.URL_SALARY + "querySalaryByTimeAndId";
             commonRequest.setRequestCode("person_salary");
-        }else{
-            URL = ConstantValues.URL_VACATE+"queryVacateByTimeAndId";
+        } else {
+            URL = ConstantValues.URL_VACATE + "queryVacateByTimeAndId";
             commonRequest.setRequestCode("person_Vacate");
         }
         commonRequest.addRequestParam("phonenumber", phonenumber);
         commonRequest.addRequestParam("s_section", section_id);
-        commonRequest.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"2020-05-04 19:15"));
-        commonRequest.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE,"2020-05-04 22:15"));
+        commonRequest.addRequestParam("btime", SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE, "2020-05-04 19:15"));
+        commonRequest.addRequestParam("etime", SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE, "2020-05-04 22:15"));
 
         HttpUtils.sendPost(URL, commonRequest.getJsonStr(), new Callback() {
             @Override
@@ -212,6 +215,7 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
                         staffSalary.setS_rtime(list.get(i).get("s_rtime"));
                         staffSalary.setS_term(list.get(i).get("s_term"));
                         staffSalary.setS_shift(list.get(i).get("s_shift"));
+                        staffSalary.setS_wage(list.get(i).get("s_wage"));
                         salaryList.add(staffSalary);
                     }
                     runOnUiThread(new Runnable() {
@@ -260,12 +264,12 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
     }
 
 
-
     //去服务器更新数据
     public void updateSalaryToServer(String bas, String wage) {
         CommonRequest commonRequest = new CommonRequest();
         commonRequest.addRequestParam("phonenumber", phonenumber);
         commonRequest.addRequestParam("u_bas", bas);
+        commonRequest.setRequestCode("salary");
         commonRequest.addRequestParam("u_wage", wage);
         HttpUtils.sendPost(ConstantValues.URL_USER + "updateUser", commonRequest.getJsonStr(), new Callback() {
             @Override
@@ -297,13 +301,21 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 2) {
+        if (resultCode == 2) {
             String s_rtime = data.getStringExtra("s_rtime");
             String s_term = data.getStringExtra("s_term");
             String s_shift = data.getStringExtra("s_shift");
-            StaffSalary salary = new StaffSalary(s_rtime, s_term, s_shift);
+            String s_wage = data.getStringExtra("s_wage");
+            StaffSalary salary = new StaffSalary(s_rtime, s_term, s_shift,s_wage,"1");
             salaryList.add(salary);
             boss_staffStaticsAdapter.refresh(salaryList);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

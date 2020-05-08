@@ -334,6 +334,7 @@ public class RecordSalaryActivity extends BaseActivity {
                             intent.putExtra("s_rtime",time);
                             intent.putExtra("s_term",etTermRecord.getText().toString());
                             intent.putExtra("s_shift",shift);
+                            intent.putExtra("s_wage",etWageRecord.getText().toString());
                             setResult(2,intent);
                             finish();
                         }

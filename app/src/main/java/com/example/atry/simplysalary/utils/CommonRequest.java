@@ -17,7 +17,7 @@ public class CommonRequest {
     //请求参数，请求数组参数
     private JSONArray jsonArray = new JSONArray();
     public CommonRequest(){
-        requestCode = "";
+
         requestParam = new HashMap<>();
     }
     public String getRequestCode() {

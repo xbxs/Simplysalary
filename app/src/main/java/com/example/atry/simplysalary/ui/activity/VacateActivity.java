@@ -69,9 +69,9 @@ public class VacateActivity extends BaseActivity {
         vacateAdapter.setselfItemClickListener(onItemClickListener);
         lvVacateApply.setAdapter(vacateAdapter);
         if(1== flag){
-            ivVacateAdd.setVisibility(View.VISIBLE);
-        }else{
             ivVacateAdd.setVisibility(View.INVISIBLE);
+        }else{
+            ivVacateAdd.setVisibility(View.VISIBLE);
         }
         ivVacateAdd.setOnClickListener(new View.OnClickListener() {
             @Override

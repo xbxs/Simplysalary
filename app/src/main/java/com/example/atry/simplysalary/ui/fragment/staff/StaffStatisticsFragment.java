@@ -60,6 +60,8 @@ public class StaffStatisticsFragment extends BaseFragment {
     Unbinder unbinder;
     private MenuViewPageAdapter mStatisticsAdapter;
     private Calendar calendar = Calendar.getInstance(Locale.CHINA);
+    private StaffStatisticsSalaryFragment salaryFragment;
+    private StaffStatisticsVacateFragment vacateFragment;
 
     @Override
     protected int setContentView() {
@@ -85,10 +87,16 @@ public class StaffStatisticsFragment extends BaseFragment {
                 }
             }
         });
-        String leftdate = SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"2020-05-04 22:15");
+        String leftdate = SPUtils.getInstance().getString(ConstantValues.STATICS_LEFT_DATE,"2020-05-03 22:15");
+        if("2020-05-03 22:15".equals(leftdate)){
+            SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,"2020-05-03 22:15");
+        }
         leftdate = leftdate.substring(0,10);
         tvStaffstaticsLeft.setText(leftdate);
         String rightdate = SPUtils.getInstance().getString(ConstantValues.STATICS_RIGHT_DATE,"2020-05-06 22:15");
+        if("2020-05-06 22:15".equals(rightdate)){
+            SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE,"2020-05-06 22:15");
+        }
         rightdate = rightdate.substring(0,10);
         tvStaffstaticsRight.setText(rightdate);
 
@@ -112,8 +120,10 @@ public class StaffStatisticsFragment extends BaseFragment {
     protected void initData() {
         //初始化数据，将页面加载进viewpager
         mFragments = new ArrayList<>();
-        mFragments.add(new StaffStatisticsSalaryFragment());
-        mFragments.add(new StaffStatisticsVacateFragment());
+        salaryFragment = new StaffStatisticsSalaryFragment();
+        vacateFragment = new StaffStatisticsVacateFragment();
+        mFragments.add(salaryFragment);
+        mFragments.add(vacateFragment);
 
         mStatisticsAdapter = new MenuViewPageAdapter(getFragmentManager(), mFragments);
         vpStatisticsMenu.setAdapter(mStatisticsAdapter);
@@ -171,11 +181,15 @@ public class StaffStatisticsFragment extends BaseFragment {
                         return;
                     } else {
                         tv.setText(year + "-" + strmonth + "-" + strdayOfMonth);
-                        SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE, year+strmonth+strdayOfMonth+" "+time);
+                        SPUtils.getInstance().save(ConstantValues.STATICS_RIGHT_DATE, year + "-" + strmonth + "-" + strdayOfMonth+" "+time);
+                        salaryFragment.requestServerStaffStatics();
+                        vacateFragment.initData();
                     }
                 } else {
                     tv.setText(year + "-" + strmonth + "-" + strdayOfMonth);
-                    SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,year+strmonth+strdayOfMonth+" "+time);
+                    SPUtils.getInstance().save(ConstantValues.STATICS_LEFT_DATE,year + "-" + strmonth + "-" + strdayOfMonth+" "+time);
+                    salaryFragment.requestServerStaffStatics();
+                    vacateFragment.initData();
                 }
             }
         }, calendar.get(Calendar.YEAR)
@@ -189,11 +203,5 @@ public class StaffStatisticsFragment extends BaseFragment {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

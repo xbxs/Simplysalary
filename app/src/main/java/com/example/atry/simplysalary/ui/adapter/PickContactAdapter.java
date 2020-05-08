@@ -59,7 +59,9 @@ public class PickContactAdapter extends BaseAdapter {
         }
         PickUserInfo pickUserInfo =pickUserInfoList.get(position);
         pickContactHolder.cb_pick.setChecked(pickUserInfo.isChecked());
-        pickContactHolder.tv_pick_name.setText(pickUserInfo.getUser().getPhonenumber());
+        String name = pickUserInfo.getUser().getName() == null ? pickUserInfo.getUser().getPhonenumber() : pickUserInfo.getUser().getName()+"("
+                    +pickUserInfo.getUser().getPhonenumber()+")";
+        pickContactHolder.tv_pick_name.setText(name);
 
         //判断是否已经在群里
         if(mexitsMembers.contains(pickUserInfo.getUser().getPhonenumber())){
@@ -84,6 +86,14 @@ public class PickContactAdapter extends BaseAdapter {
         CheckBox cb_pick;
         ImageView iv_pick_head;
         TextView tv_pick_name;
+    }
+
+    public void refresh(List<String> exitsMembers){
+        if(null != exitsMembers && exitsMembers.size() >=0){
+            mexitsMembers.clear();
+            mexitsMembers.addAll(exitsMembers);
+            notifyDataSetChanged();
+        }
     }
 
 

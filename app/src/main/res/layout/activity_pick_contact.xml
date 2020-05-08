@@ -31,10 +31,23 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
-    <ListView
-        android:id="@+id/lv_pick"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_pick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <ImageView
+            android:id="@+id/iv_nothingdata"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
+            android:src="@drawable/nothingdata"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
 
 </LinearLayout>
