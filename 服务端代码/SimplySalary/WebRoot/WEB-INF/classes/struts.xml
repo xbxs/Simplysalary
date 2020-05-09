@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="users" extends="struts-default" namespace="/users">
+		<action name="Users_*" class="action.UserAction" method="{1}">			
+		</action>
+	</package>
+	
+	<package name="salary" extends="struts-default" namespace="/salary">
+		<action name="Salary_*" class="action.SalaryAction" method="{1}">
+		</action>
+	</package>
+		
+	<package name="vacate" extends="struts-default" namespace="/vacate">
+		<action name="Vacate_*" class="action.VacateAction" method="{1}">
+		</action>
+	</package>
+	
+	<package name="schedule" extends="struts-default" namespace="/schedule">
+		<action name="Schedule_*" class="action.ScheduleAction" method="{1}">
+		</action>
+	</package>
+	
+	
+</struts>    

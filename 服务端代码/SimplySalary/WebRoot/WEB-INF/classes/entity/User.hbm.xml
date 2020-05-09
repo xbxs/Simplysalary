@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package ="entity">
+	<class name="entity.User" table="USER">
+		<id name="u_phone" type="java.lang.String" column="U_PHONE">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="u_name" type="java.lang.String"/>
+		<property name="u_head" type="java.lang.String"/>
+		<property name="u_flag" type="java.lang.String"/>
+		<property name="u_pw" type="java.lang.String"/>
+		<property name="u_section" type="java.lang.String"/>
+		<property name="u_bas" type="int"/>
+		<property name="u_wage" type="java.lang.String"/>
+		<property name="u_ower" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

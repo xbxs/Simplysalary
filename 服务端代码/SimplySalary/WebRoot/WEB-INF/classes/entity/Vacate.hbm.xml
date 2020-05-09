@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package ="entity">
+	<class name="entity.Vacate" table="VACATE">
+		<id name="v_id" type="int" column="V_ID">
+			<generator class="identity"></generator>
+		</id>
+		<property name="u_phone" type="java.lang.String"/>
+		<property name="v_rtime" type="java.lang.String"/>
+		<property name="v_term" type="java.lang.String"/>
+		<property name="v_shift" type="java.lang.String"/>
+		<property name="v_section" type="java.lang.String"/>
+		<property name="v_reason" type="java.lang.String"/>
+		<property name="v_tuser" type="java.lang.String"/>
+		<property name="v_status" type="java.lang.String"/>
+		<property name="v_etime" type="java.lang.String"/>
+		<property name="v_type" type="java.lang.String"/>
+		<property name="v_btime" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>
