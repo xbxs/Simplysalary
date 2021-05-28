@@ -1,7 +1,7 @@
 package com.example.atry.simplysalary.model.dao;
 
 /**
- * 李维: TZZ on 2019-12-29 13:46
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class UserAccountTable {

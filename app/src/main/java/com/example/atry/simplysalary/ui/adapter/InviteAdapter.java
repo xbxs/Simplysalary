@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 李维: TZZ on 2020-01-07 13:08
+ * 李维:
  * 邮箱: 3182430026@qq.com
  * <p>
  * 邀请信息列表的适配器

@@ -1,7 +1,7 @@
 package com.example.atry.simplysalary.model.bean;
 
 /**
- * 李维: TZZ on 2020-01-06 13:12
+ * 李维: TZZ on
  * 邮箱: 3182430026@qq.com
  */
 public class GroupInfo {

@@ -9,7 +9,7 @@ import com.example.atry.simplysalary.model.bean.User;
 import com.example.atry.simplysalary.model.db.UserDataHelper;
 
 /**
- * 李维: TZZ on 2019-12-29 14:07
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class UserAccountDao {

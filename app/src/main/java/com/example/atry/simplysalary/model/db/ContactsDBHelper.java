@@ -9,7 +9,7 @@ import com.example.atry.simplysalary.model.dao.ContactTable;
 import com.example.atry.simplysalary.model.dao.InviteTable;
 
 /**
- * 李维: TZZ on 2020-01-06 13:26
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class ContactsDBHelper extends SQLiteOpenHelper {

@@ -31,7 +31,7 @@ public class ConstantValues {
     public static final String STATICS_RIGHT_DATE = "statics_right_date";
     //URL
     //服务器域名
-    public static final String SERVER_URL= "http://192.168.43.24:8080/SimplySalary";
+    public static final String SERVER_URL= "http://192.168.173.139:8080/SimplySalary";
     //登录的url
     public static final String URL_Login = SERVER_URL+"/users/Users_login";
     //注册的url

@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import static com.example.atry.simplysalary.model.dao.UserAccountTable.CREATE_USER;
 
 /**
- * 李维: TZZ on 2019-11-06 16:17
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class UserDataHelper extends SQLiteOpenHelper {

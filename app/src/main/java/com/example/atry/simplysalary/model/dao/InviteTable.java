@@ -1,7 +1,7 @@
 package com.example.atry.simplysalary.model.dao;
 
 /**
- * 李维: TZZ on 2020-01-06 15:13
+ * 李维:
  * 邮箱: 3182430026@qq.com
  *
  * 邀请信息的表

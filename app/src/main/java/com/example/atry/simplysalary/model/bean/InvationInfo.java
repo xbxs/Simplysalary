@@ -1,7 +1,7 @@
 package com.example.atry.simplysalary.model.bean;
 
 /**
- * 李维: TZZ on 2020-01-06 13:14
+ * 李维: TZZ
  * 邮箱: 3182430026@qq.com
  *
  * 邀请信息的bean

@@ -20,6 +20,7 @@ import com.example.atry.simplysalary.utils.CommonResponse;
 import com.example.atry.simplysalary.utils.ConstantValues;
 import com.example.atry.simplysalary.utils.HttpUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
+import com.hyphenate.chat.EMClient;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -155,6 +156,7 @@ public class PickContactActivity extends BaseActivity {
             }
         }else{
             URL = ConstantValues.URL_USER + "queryUserSection";
+            request.addRequestParam("ower",EMClient.getInstance().getCurrentUser());
         }
         HttpUtils.sendPost(URL, request.getJsonStr(), new Callback() {
             @Override

@@ -120,8 +120,6 @@ public class LoginActivity extends BaseActivity {
                     });
                 }
             });
-        }else{
-            Uiutils.toast("系统繁忙请稍后！");
         }
         return  false;
     }

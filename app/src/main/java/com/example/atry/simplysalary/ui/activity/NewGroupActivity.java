@@ -114,7 +114,7 @@ public class NewGroupActivity extends BaseActivity {
                     Uiutils.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Uiutils.toast("创建部门失败");
+                            Uiutils.toast("创建部门失败:"+e.getDescription());
                         }
                     });
                 }

@@ -6,13 +6,13 @@
     >
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="300dp"
-       android:background="@drawable/headbg"
+       android:layout_height="280dp"
+
        >
        <ImageView
            android:id="@+id/iv_head"
-           android:layout_width="200dp"
-           android:layout_height="200dp"
+           android:layout_width="160dp"
+           android:layout_height="160dp"
            android:src="@drawable/head"
            android:layout_centerInParent="true"
            />

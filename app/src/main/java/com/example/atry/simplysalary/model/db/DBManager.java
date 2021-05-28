@@ -6,7 +6,7 @@ import com.example.atry.simplysalary.model.dao.ContactTableDao;
 import com.example.atry.simplysalary.model.dao.InviteTableDao;
 
 /**
- * 李维: TZZ on 2020-01-06 18:33
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class DBManager {

@@ -123,8 +123,7 @@ public class Uiutils {
         if((password.length() >5 ) && (password.length() < 13)){
             return true;
         }
+        Toast.makeText(getContext(),"密码不符合格式",Toast.LENGTH_SHORT).show();
         return false;
     }
-
-
 }

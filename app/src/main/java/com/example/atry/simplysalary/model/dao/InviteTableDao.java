@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 李维: TZZ on 2020-01-06 15:52
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class InviteTableDao {
