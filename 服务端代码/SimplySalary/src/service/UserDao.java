@@ -24,5 +24,5 @@ public interface UserDao {
 		public boolean deleteUser(String u_phone);
 		
 		//查询同一部门的职员
-		public List<User> querySectionUser(String s_id);
+		public List<User> querySectionUser(String s_id,String u_ower);
 }

@@ -9,9 +9,7 @@
 	<property name="dialect">
 		org.hibernate.dialect.MySQLDialect
 	</property>
-	<property name="connection.url">
-		jdbc:mysql://localhost:3306/simplysalary
-	</property>
+	<property name="connection.url">jdbc:mysql://localhost:3306/simplysalary?useSSL=false</property>
 	<property name="connection.username">root</property>
 	<property name="connection.password">lw323</property>
 	<property name="connection.driver_class">

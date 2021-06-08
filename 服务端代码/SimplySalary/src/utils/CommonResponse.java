@@ -46,7 +46,9 @@ public class CommonResponse {
     	object.put("resMsg",resMsg);
     	object.put("property",param);
     	object.accumulate("list", jsonarray);
-    	return object.toString();
+    	String req = object.toString();
+    	System.out.println("response:"+req);
+    	return req;
     }
 	@Override
 	public String toString() {

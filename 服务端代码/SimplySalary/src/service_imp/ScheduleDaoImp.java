@@ -18,12 +18,13 @@ public class ScheduleDaoImp implements ScheduleDao {
 
 	@Override
 	public List<Schedule> queryAllSchedules() {
+		Session session = null;
 		Transaction tx = null;
 		List<Schedule> list =null;
 		String sql = "";
 		
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Schedule";
 			Query query = session.createQuery(sql);
@@ -35,6 +36,9 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return list;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -46,11 +50,11 @@ public class ScheduleDaoImp implements ScheduleDao {
 		Transaction tx = null;
 		List<Schedule> list =null;
 		String sql = "";
-		
-	
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+		Session session = null;
+	try{
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
-		try{
+		
 			sql = "from Schedule where  s_time= ?";
 			Query query = session.createQuery(sql);
 			query.setParameter(0, time);
@@ -62,6 +66,9 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return list;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -70,12 +77,13 @@ public class ScheduleDaoImp implements ScheduleDao {
 
 	@Override
 	public List<Schedule> querySchedulesByTimeUphone(String hxid, String rtime) {
+		Session session = null;
 		Transaction tx = null;
 		List<Schedule> list =null;
 		String sql = "";
 		
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Schedule where  s_time= ? and u_phone = ?";
 			Query query = session.createQuery(sql);
@@ -89,6 +97,9 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return list;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -97,9 +108,10 @@ public class ScheduleDaoImp implements ScheduleDao {
 
 	@Override
 	public boolean addSchedule(Schedule schedule) {
+		Session session = null;
 		Transaction tx = null;
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			session.save(schedule);
 			tx.commit();
@@ -109,6 +121,9 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return false;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -117,9 +132,10 @@ public class ScheduleDaoImp implements ScheduleDao {
 
 	@Override
 	public boolean updateSchedule(Schedule schedule) {
+		Session session = null;
 		Transaction tx = null;
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			session.update(schedule);
 			tx.commit();
@@ -129,6 +145,9 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return false;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -137,10 +156,11 @@ public class ScheduleDaoImp implements ScheduleDao {
 
 	@Override
 	public boolean deleteSchedule(int id){
+		Session session = null;
 		Transaction tx = null;
 		Schedule schedule;
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			schedule = queryScheduleById(id);
 			if(schedule != null){
@@ -155,17 +175,21 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return false;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
 		}
 	}
 	public Schedule queryScheduleById(int id){
+		Session session = null;
 		Transaction tx = null;
 		Schedule schedule = null;
 		
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			schedule = (Schedule)session.get(Schedule.class,id);
 			tx.commit();
@@ -175,6 +199,9 @@ public class ScheduleDaoImp implements ScheduleDao {
 			tx.commit();
 			return schedule;
 		}finally{
+			if(session != null){
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}

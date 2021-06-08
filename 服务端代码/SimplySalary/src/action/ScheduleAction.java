@@ -2,6 +2,8 @@ package action;
 
 import java.util.List;
 
+//import com.alibaba.fastjson.JSONObject;
+//import com.alibaba.fastjson.JSONArray;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import service.ScheduleDao;
@@ -11,6 +13,7 @@ import service_imp.UserDaoImp;
 import utils.CommonResponse;
 import utils.HpUtils;
 import entity.Schedule;
+import entity.User;
 
 public class ScheduleAction extends BaseAction {
 	//查询某一天的全部排班
@@ -27,7 +30,10 @@ public class ScheduleAction extends BaseAction {
 			JSONObject jsonobject = new JSONObject();
 			jsonobject.put("s_id",schedule.getS_id()+"");
 			jsonobject.put("u_phone",schedule.getU_phone());
-			jsonobject.put("u_name", userdao.queryUsersByUphone(schedule.getU_phone()).getU_name());
+			User user = userdao.queryUsersByUphone(schedule.getU_phone());
+			if(user != null){
+				jsonobject.put("u_name", user.getU_name());
+			}
 			jsonobject.put("s_time",schedule.getS_time());
 			jsonobject.put("s_shift",schedule.getS_shift());
 			jsonobject.put("s_term", schedule.getS_term());  

@@ -16,12 +16,13 @@ public class VacateDaoImp implements VacateDao {
 
 	@Override
 	public List<Vacate> queryAllVacates() {
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> list =null;
 		String sql = "";
 		
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Vacate";
 			Query query = session.createQuery(sql);
@@ -33,6 +34,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return list;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -45,9 +49,10 @@ public class VacateDaoImp implements VacateDao {
 
 	@Override
 	public boolean addVacate(Vacate vacate) {
+		Session session = null;
 		Transaction tx = null;
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			session.save(vacate);
 			tx.commit();
@@ -57,6 +62,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return false;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -80,8 +88,9 @@ public class VacateDaoImp implements VacateDao {
 	@Override
 	public boolean updateVacate(Vacate vacate) {
 		Transaction tx = null;
+		Session session = null;
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			session.update(vacate);
 			tx.commit();
@@ -91,6 +100,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return false;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -99,11 +111,12 @@ public class VacateDaoImp implements VacateDao {
 
 	@Override
 	public boolean deleteVacate(String time,String u_phone,String section) {
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> salarys = null;
 		
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			salarys =queryVacateByRtime(time,u_phone,section);
 			if(null !=salarys && salarys.size() > 0){
@@ -119,6 +132,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return false;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -132,11 +148,12 @@ public class VacateDaoImp implements VacateDao {
 	@Override
 	public List<Vacate> queryVacateByTimeAndSec(String btime, String etime,
 			String section) {
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> list =null;
 		String sql = "";
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Vacate where v_section = ? and v_rtime between =? and =?";
 			Query query = session.createQuery(sql);
@@ -151,6 +168,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return list;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -160,11 +180,12 @@ public class VacateDaoImp implements VacateDao {
 
 
 	public List<Vacate> queryVacateByRtime(String rtime,String u_phone,String section){
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> list =null;
 		String sql = "";
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Vacate where u_phone = ? and v_section = ? and v_rtime =? and v_status =1";
 			Query query = session.createQuery(sql);
@@ -179,6 +200,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return list;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -188,11 +212,12 @@ public class VacateDaoImp implements VacateDao {
 	@Override
 	public List<Vacate> queryVacateByTimeAndId(String btime, String etime,
 			String u_phone, String section) {
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> list =null;
 		String sql = "";
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Vacate where u_phone = ? and v_section = ? and v_btime >=? and v_etime <=? and v_status =3";
 			Query query = session.createQuery(sql);
@@ -208,6 +233,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return list;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -220,11 +248,12 @@ public class VacateDaoImp implements VacateDao {
 
 	@Override
 	public List<Vacate> queryVacateByApply(String v_tuser) {
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> list =null;
 		String sql = "";
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Vacate where v_tuser = ?";
 			Query query = session.createQuery(sql);
@@ -237,6 +266,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return list;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -249,11 +281,12 @@ public class VacateDaoImp implements VacateDao {
 
 	@Override
 	public List<Vacate> queryVacateBySelfApply(String u_phone) {
+		Session session = null;
 		Transaction tx = null;
 		List<Vacate> list =null;
 		String sql = "";
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			sql = "from Vacate where u_phone = ?";
 			Query query = session.createQuery(sql);
@@ -266,6 +299,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return list;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
@@ -278,11 +314,12 @@ public class VacateDaoImp implements VacateDao {
 
 	@Override
 	public Vacate queryVacateById(int id) {
+		Session session = null;
 		Transaction tx = null;
 		Vacate vacate = null;
 		
 		try{
-			Session session  = HibernateSessionFactory.getSessionFactory().openSession();
+			session  = HibernateSessionFactory.getSessionFactory().openSession();
 			tx = session.beginTransaction();
 			vacate = (Vacate)session.get(Vacate.class,id);
 			tx.commit();
@@ -292,6 +329,9 @@ public class VacateDaoImp implements VacateDao {
 			tx.commit();
 			return vacate;
 		}finally{
+			if (session != null) {
+				session.close();
+			}
 			if(tx != null){
 				tx = null;
 			}
