@@ -37,7 +37,7 @@ import okhttp3.Response;
 
 public class VacateActivity extends BaseActivity {
 
-
+    String vacateName = "";
     @BindView(R.id.iv_back_vacate)
     ImageView ivBackVacate;
     @BindView(R.id.iv_vacate_add)
@@ -117,6 +117,8 @@ public class VacateActivity extends BaseActivity {
                         Vacate vacate = new Vacate();
                         vacate.setV_id(list.get(i).get("v_id"));
                         vacate.setU_phone(list.get(i).get("u_phone"));
+                        vacate.setU_name(list.get(i).get("u_name"));
+                        vacateName = list.get(i).get("u_name");
                         vacate.setV_rtime(list.get(i).get("v_rtime"));
                         vacate.setV_term(list.get(i).get("v_term"));
                         vacate.setV_type(list.get(i).get("v_type"));
@@ -148,6 +150,7 @@ public class VacateActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 1){
             Vacate vacate = data.getParcelableExtra("vacate");
+            vacate.setU_name(vacateName);
             mvacates.add(0,vacate);
             vacateAdapter.refresh(mvacates);
         }

@@ -2,6 +2,7 @@ package com.example.atry.simplysalary.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -21,6 +22,7 @@ import com.example.atry.simplysalary.utils.ConstantValues;
 import com.example.atry.simplysalary.utils.HttpUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMCursorResult;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -147,16 +149,15 @@ public class PickContactActivity extends BaseActivity {
     public void requestServerUser() {
         CommonRequest request = new CommonRequest();
         String URL;
+        List<User> contacts = Model.getInstance().getDbManager().getContactTableDao().getContacts();
+        for(User user :contacts){
+            request.addRequestParam(user.getPhonenumber());
+        }
         if("arragework".equals(flag)){
             URL = ConstantValues.URL_USER+"queryBossContact";
             //获取联系人的信息
-            List<User> contacts = Model.getInstance().getDbManager().getContactTableDao().getContacts();
-            for(User user :contacts){
-                request.addRequestParam(user.getPhonenumber());
-            }
         }else{
             URL = ConstantValues.URL_USER + "queryUserSection";
-            request.addRequestParam("ower",EMClient.getInstance().getCurrentUser());
         }
         HttpUtils.sendPost(URL, request.getJsonStr(), new Callback() {
             @Override

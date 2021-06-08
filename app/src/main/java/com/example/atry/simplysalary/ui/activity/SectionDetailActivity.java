@@ -101,7 +101,7 @@ public class SectionDetailActivity extends BaseActivity {
                intent.putExtra("phonenumber",userList.get(position).getPhonenumber());
                intent.putExtra("section_id",mgroupId);
                intent.putExtra("salary_or_vacate",flag);
-               startActivity(intent);
+               startActivityForResult(intent,5);
            }
        });
         //添加员工
@@ -120,7 +120,9 @@ public class SectionDetailActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if(requestCode == 5 && resultCode == RESULT_OK){
+            getMembersFromHxServer();
+        }else if(resultCode == RESULT_OK){
             //获得选择的群成员信息
             String[] members = data.getStringArrayExtra("members");
             Model.getInstance().getGlobalThreadPool().execute(new Runnable() {

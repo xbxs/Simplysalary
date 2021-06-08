@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 /**
- * 李维: TZZ on 2019-11-06 16:33
+ * 李维:
  * 邮箱: 3182430026@qq.com
  */
 public class ConstantValues {
@@ -31,7 +31,7 @@ public class ConstantValues {
     public static final String STATICS_RIGHT_DATE = "statics_right_date";
     //URL
     //服务器域名
-    public static final String SERVER_URL= "http://192.168.173.139:8080/SimplySalary";
+    public static final String SERVER_URL= "http://192.168.241.93:8080/SimplySalary";
     //登录的url
     public static final String URL_Login = SERVER_URL+"/users/Users_login";
     //注册的url

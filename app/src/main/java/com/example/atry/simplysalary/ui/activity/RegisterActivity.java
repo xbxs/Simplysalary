@@ -22,6 +22,8 @@ import com.example.atry.simplysalary.utils.CommonResponse;
 import com.example.atry.simplysalary.utils.ConstantValues;
 import com.example.atry.simplysalary.utils.HttpUtils;
 import com.example.atry.simplysalary.utils.Uiutils;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -100,7 +102,7 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 }
                 //验证码
-                SMSSDK.getVerificationCode("86",phoneNums);
+                SMSSDK.getVerificationCode("86", phoneNums);
                 btn_send_verify.setClickable(false);
                 btn_send_verify.setText("重新发送(" + i + ")");
                 new Thread(new Runnable() {
@@ -125,7 +127,7 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 }
                 SMSSDK.submitVerificationCode("86",phoneNums,et_register_verify.getText().toString());
-                registerUser();
+//                registerUser();
                 break;
             default:
                 break;
@@ -133,19 +135,53 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private boolean registerUser() {
+//        int flag = rb_staff.isChecked() ? 0 : 1;
+//        User user = new User(mNumber, "备注", "", flag, "", 0, 0);
+//        RegisterPost(user);
+//        return false;
+        //去服务器注册账号
 
-        int flag = rb_staff.isChecked() ? 0 : 1;
-        User user = new User(mNumber, "备注", "", flag, "", 0, 0);
-        RegisterPost(user);
+        Model.getInstance().getGlobalThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMClient.getInstance().createAccount(mNumber, mPassword);
+                    //如果环信服务器注册成功
+                    int flag = rb_staff.isChecked() ? 0 : 1;
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user = new User(mNumber, "备注", "", flag, "", 0, 0);
+                            RegisterPost(user);
+                            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+
+                            insertdb();
+                            finish();
+                        }
+                    });
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(RegisterActivity.this, "注册失败：" + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }
+        });
         return false;
     }
+
     //去自己的服务器添加用户
     private void RegisterPost(User user) {
         CommonRequest request = new CommonRequest();
         request.addRequestParam("account", user.getPhonenumber());
         request.addRequestParam("password", mPassword);
         request.addRequestParam("flag", user.getFlag() + "");
-        request.addRequestParam("u_name",etRegisterName.getText().toString());
+        request.addRequestParam("u_name", etRegisterName.getText().toString());
         //调用请求网络的方法
         infoPost(ConstantValues.URL_Register, request.getJsonStr());
     }
@@ -250,10 +286,9 @@ public class RegisterActivity extends BaseActivity {
         mNumber = et_register_number.getText().toString().trim();
         mPassword = et_register_password.getText().toString().trim();
         if (!Uiutils.judgePhoneNums(mNumber)) {
-
             return false;
         }
-        if(TextUtils.isEmpty(etRegisterName.getText().toString())){
+        if (TextUtils.isEmpty(etRegisterName.getText().toString())) {
             Uiutils.toast("姓名为空");
             return false;
         }

@@ -108,8 +108,8 @@ public class BossArrageWorkFragment extends BaseFragment {
                 requestServerVacate();
             }
         });
-        rbMoringBoss.setText("中班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_MORING,"9:00-12:00"));
-        rbAfterBoss.setText("午班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_AFTERNOON,"12:00-17:00"));
+        rbMoringBoss.setText("早班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_MORING,"9:00-12:00"));
+        rbAfterBoss.setText("中班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_AFTERNOON,"12:00-17:00"));
         rbEveningBoss.setText("晚班\n"+SPUtils.getInstance().getString(ConstantValues.ARRAGEWORK_EVENING,"17:00-22:00"));
         rgBoosArragework.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

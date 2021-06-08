@@ -67,7 +67,7 @@ public class VacateAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         Vacate vacate = mvacates.get(position);
-        holder.tv_uphone_vacate.setText(vacate.getU_phone());
+        holder.tv_uphone_vacate.setText("("+vacate.getU_name()+")"+vacate.getU_phone());
         holder.tv_type.setText(number2str(vacate.getV_type()));
         holder.tv_term.setText(vacate.getV_term());
         holder.tv_begintime.setText(vacate.getV_btime());

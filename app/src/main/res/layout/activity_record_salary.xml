@@ -159,6 +159,7 @@
             android:layout_height="70dp"
             android:text="语音填写"
             android:textSize="35sp"
+            android:visibility="gone"
             android:layout_above="@id/btn_record"
             />
         <Button

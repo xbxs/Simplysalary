@@ -114,7 +114,8 @@
             android:id="@+id/iv_createsection"
             android:layout_width="@dimen/ouriconwide"
             android:layout_height="@dimen/ouriconheight"
-            android:src="@drawable/contacts_click"
+            android:src="@drawable/section"
+            android:scaleType="centerCrop"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -137,6 +138,7 @@
                 android:layout_width="@dimen/ouriconwide"
                 android:layout_height="@dimen/ouriconheight"
                 android:src="@drawable/vacate"
+                android:scaleType="centerCrop"
                 />
             <TextView
                 android:layout_width="wrap_content"

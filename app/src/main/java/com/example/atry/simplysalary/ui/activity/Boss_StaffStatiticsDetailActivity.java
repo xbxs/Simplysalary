@@ -83,6 +83,7 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(RESULT_OK);
                 finish();
             }
         });
@@ -317,5 +318,11 @@ public class Boss_StaffStatiticsDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
     }
 }

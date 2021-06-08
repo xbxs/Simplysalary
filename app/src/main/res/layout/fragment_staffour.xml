@@ -121,6 +121,7 @@
             android:layout_width="@dimen/ouriconwide"
             android:layout_height="@dimen/ouriconheight"
             android:src="@drawable/vacate"
+            android:scaleType="centerCrop"
             />
         <TextView
             android:layout_width="wrap_content"
